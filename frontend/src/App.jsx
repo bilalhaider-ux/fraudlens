@@ -29,7 +29,7 @@ export default function App() {
   const [streamSpeed, setStreamSpeed] = useState(2.0);
   const [newestTxId, setNewestTxId] = useState(null);
   const [isAttacking, setIsAttacking] = useState(false);
-  const [targetGraphNodeId, setTargetGraphNodeId] = useState(null);
+  const [targetGraphNodeId, setTargetGraphNodeId] = useState('174085');
 
   const wsRef = useRef(null);
 
@@ -212,10 +212,14 @@ export default function App() {
 
   const alertCount = transactions.filter(t => t.status === 'UNDER_REVIEW').length;
 
+  const activeScreenNumber = typeof activeTab === 'number' 
+    ? activeTab 
+    : (activeTab === 'situation' ? 1 : activeTab === 'graph' ? 2 : activeTab === 'drift' ? 3 : 4);
+
   return (
     <div className="min-h-screen w-full overflow-x-hidden flex flex-col bg-[#080B11] text-[#F8FAFC]">
       <Navbar
-        activeScreen={typeof activeTab === 'number' ? activeTab : (activeTab === 'situation' ? 1 : activeTab === 'graph' ? 2 : activeTab === 'drift' ? 3 : 4)}
+        activeScreen={activeScreenNumber}
         setActiveScreen={setActiveTab}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -225,14 +229,17 @@ export default function App() {
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 py-4 sm:py-6">
         {(activeTab === 'situation' || activeTab === 1) && (
           <SituationRoom
+            activeScreen={activeScreenNumber}
+            setActiveScreen={setActiveTab}
+            selectedNodeId={targetGraphNodeId}
+            setSelectedNodeId={setTargetGraphNodeId}
             onNavigateToGraph={(nodeId) => {
               setTargetGraphNodeId(nodeId || '174085');
-              setActiveTab('graph');
+              setActiveTab(2);
             }}
             onNavigateToAlerts={() => {
-              setActiveTab('alerts');
+              setActiveTab(4);
             }}
-            setActiveScreen={setActiveTab}
           />
         )}
 
@@ -242,27 +249,31 @@ export default function App() {
             selectedNodeId={targetGraphNodeId}
             onSelectNodeId={(id) => setTargetGraphNodeId(id)}
             setSelectedNodeId={setTargetGraphNodeId}
-            activeScreen={typeof activeTab === 'number' ? activeTab : (activeTab === 'situation' ? 1 : activeTab === 'graph' ? 2 : activeTab === 'drift' ? 3 : 4)}
+            activeScreen={activeScreenNumber}
             setActiveScreen={setActiveTab}
           />
         )}
 
         {(activeTab === 'drift' || activeTab === 3) && (
           <DriftMonitor 
+            activeScreen={activeScreenNumber}
             setActiveScreen={setActiveTab}
+            selectedNodeId={targetGraphNodeId}
+            setSelectedNodeId={setTargetGraphNodeId}
           />
         )}
 
         {(activeTab === 'alerts' || activeTab === 4) && (
           <AlertsQueue
+            activeScreen={activeScreenNumber}
+            setActiveScreen={setActiveTab}
+            selectedNodeId={targetGraphNodeId}
+            setSelectedNodeId={setTargetGraphNodeId}
             onSelectNode={(id) => {
               setTargetGraphNodeId(id);
               setActiveTab(2);
             }}
             onTargetNode={handleTargetNodeInGraph}
-            selectedNodeId={targetGraphNodeId}
-            setSelectedNodeId={setTargetGraphNodeId}
-            setActiveScreen={setActiveTab}
           />
         )}
       </main>

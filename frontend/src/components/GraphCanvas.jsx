@@ -67,6 +67,30 @@ export default function GraphCanvas({
   const [searchQuery, setSearchQuery] = useState('');
   const [filterMode, setFilterMode] = useState('ALL'); // ALL, ILLICIT, SEED
   const [stats, setStats] = useState({ nodeCount: 0, edgeCount: 0, seedNode: SEED_NODE_ID });
+  const [triageDecisions, setTriageDecisions] = useState({});
+
+  const handleTriageAction = (nodeId, disposition) => {
+    const key = String(nodeId);
+    setTriageDecisions((prev) => ({ ...prev, [key]: disposition }));
+    if (cyRef.current && !cyRef.current.destroyed()) {
+      const ele = cyRef.current.$(`#${key}`);
+      if (ele && ele.length > 0) {
+        if (disposition === 'CONFIRMED_FRAUD') {
+          ele.style({
+            'background-color': '#EF4444',
+            'border-color': '#F87171',
+            'border-width': 8
+          });
+        } else if (disposition === 'DISMISSED') {
+          ele.style({
+            'background-color': '#10B981',
+            'border-color': '#34D399',
+            'border-width': 5
+          });
+        }
+      }
+    }
+  };
 
   // Defensive Graph Data Adapter: Prunes corrupt orphan links & normalizes keys
   const processedElements = useMemo(() => {
@@ -765,7 +789,7 @@ export default function GraphCanvas({
             node={selectedNode}
             isOpen={isDrawerOpen}
             onClose={() => setIsDrawerOpen(false)}
-            onTriageAction={() => {}}
+            onTriageAction={handleTriageAction}
           />
         </div>
 
@@ -779,19 +803,34 @@ export default function GraphCanvas({
                 <Info size={18} color="#06B6D4" />
                 <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>Node Telemetry</h3>
               </div>
-              {selectedNode?.is_seed && (
-                <span style={{
-                  padding: '2px 8px',
-                  borderRadius: '4px',
-                  fontSize: '0.7rem',
-                  fontWeight: 800,
-                  background: 'rgba(245, 158, 11, 0.2)',
-                  color: '#FBBF24',
-                  border: '1px solid rgba(245, 158, 11, 0.4)'
-                }}>
-                  ACTIVE SEED
-                </span>
-              )}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                {selectedNode && triageDecisions[String(selectedNode.id)] && (
+                  <span style={{
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    fontSize: '0.7rem',
+                    fontWeight: 800,
+                    background: triageDecisions[String(selectedNode.id)] === 'CONFIRMED_FRAUD' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(16, 185, 129, 0.2)',
+                    color: triageDecisions[String(selectedNode.id)] === 'CONFIRMED_FRAUD' ? '#F87171' : '#34D399',
+                    border: `1px solid ${triageDecisions[String(selectedNode.id)] === 'CONFIRMED_FRAUD' ? '#EF4444' : '#10B981'}`
+                  }}>
+                    {triageDecisions[String(selectedNode.id)] === 'CONFIRMED_FRAUD' ? 'TRIAGED: FRAUD' : 'TRIAGED: DISMISSED'}
+                  </span>
+                )}
+                {selectedNode?.is_seed && (
+                  <span style={{
+                    padding: '2px 8px',
+                    borderRadius: '4px',
+                    fontSize: '0.7rem',
+                    fontWeight: 800,
+                    background: 'rgba(245, 158, 11, 0.2)',
+                    color: '#FBBF24',
+                    border: '1px solid rgba(245, 158, 11, 0.4)'
+                  }}>
+                    ACTIVE SEED
+                  </span>
+                )}
+              </div>
             </div>
 
             {selectedNode ? (

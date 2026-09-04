@@ -312,7 +312,7 @@ export default function InvestigationWorkbench({
               ) : (
                 currentTx.reason_codes.map((rc, idx) => (
                   <div
-                    key={idx}
+                    key={`rc-${rc.factor || idx}-${idx}`}
                     style={{
                       background: rc.direction === 'RISK_DECREASE' ? 'rgba(16, 185, 129, 0.08)' : 'rgba(239, 68, 68, 0.08)',
                       borderLeft: `3px solid ${rc.direction === 'RISK_DECREASE' ? '#10B981' : '#EF4444'}`,
@@ -350,7 +350,7 @@ export default function InvestigationWorkbench({
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.5rem' }}>
                   {currentTx.triggered_rules.map((rule, idx) => (
                     <span
-                      key={idx}
+                      key={`rule-${typeof rule === 'object' ? rule.id : rule}-${idx}`}
                       style={{
                         fontSize: '0.7rem',
                         padding: '3px 8px',
@@ -548,7 +548,7 @@ export default function InvestigationWorkbench({
                 <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', fontWeight: 600 }}>Audit History Trail:</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
                   {currentTx.notes.map((n, idx) => (
-                    <div key={idx} style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '0.5rem 0.75rem', borderRadius: '6px', fontSize: '0.75rem' }}>
+                    <div key={`audit-note-${n.analyst}-${n.timestamp}-${idx}`} style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '0.5rem 0.75rem', borderRadius: '6px', fontSize: '0.75rem' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--text-muted)', fontSize: '0.68rem' }}>
                         <span>Analyst: <strong>{n.analyst}</strong></span>
                         <span>{new Date(n.timestamp).toLocaleTimeString()}</span>

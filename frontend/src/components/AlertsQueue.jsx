@@ -14,37 +14,46 @@ import {
 } from 'lucide-react';
 import rawAlerts from '../assets/alerts.json';
 
-export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId, setActiveScreen }) {
+export default function AlertsQueue({ 
+  activeScreen, 
+  setActiveScreen, 
+  selectedNodeId, 
+  setSelectedNodeId, 
+  onSelectNode, 
+  onTargetNode 
+}) {
   const [alerts] = useState(rawAlerts);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterLabel, setFilterLabel] = useState('ALL');
   const [sortField, setSortField] = useState('node_id');
   const [sortAsc, setSortAsc] = useState(true);
 
+  // Safe search coercion & null-safe category filtering
   const filteredAlerts = alerts.filter(item => {
     if (searchQuery.trim() !== '') {
-      const q = searchQuery.toLowerCase();
-      if (!String(item.node_id).includes(q)) return false;
+      const q = searchQuery.trim().toLowerCase();
+      const idStr = String(item?.node_id ?? '').toLowerCase();
+      if (!idStr.includes(q)) return false;
     }
     if (filterLabel === 'DRIFTED') {
-      return item.regime === 'Drifted' || item.timestep >= 43;
+      return item?.regime === 'Drifted' || (Number(item?.timestep) >= 43);
     }
     if (filterLabel === 'NOMINAL') {
-      return item.regime === 'Nominal' || item.timestep === 42;
+      return item?.regime === 'Nominal' || (Number(item?.timestep) === 42);
     }
-    return true; // "ALL" returns all 15 alerts without filtering to zero
+    return true; // "ALL" returns all alerts without dropping items
   }).sort((a, b) => {
-    let valA = a[sortField];
-    let valB = b[sortField];
+    let valA = a?.[sortField] ?? 0;
+    let valB = b?.[sortField] ?? 0;
     if (valA < valB) return sortAsc ? -1 : 1;
     if (valA > valB) return sortAsc ? 1 : -1;
     return 0;
   });
 
   const getLabelBadge = (item) => {
-    const label = typeof item === 'object' ? item.true_label : item;
-    const score = typeof item === 'object' ? item.risk_score : 0;
-    const status = typeof item === 'object' ? item.status : null;
+    const label = typeof item === 'object' ? item?.true_label : item;
+    const score = typeof item === 'object' ? (item?.risk_score ?? 0) : 0;
+    const status = typeof item === 'object' ? item?.status : null;
 
     if (label === 1 || score >= 0.85) {
       return { text: status || 'CONFIRMED ILLICIT', bg: 'rgba(239, 68, 68, 0.2)', color: '#F87171', border: '#EF4444' };
@@ -55,10 +64,13 @@ export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId
     return { text: status || 'FLAGGED SUSPICIOUS', bg: 'rgba(245, 158, 11, 0.2)', color: '#FBBF24', border: '#F59E0B' };
   };
 
+  // Trace the Pivot Handshake: updates selected node and navigates to Screen 2
   const handleSelectAlert = (nodeId) => {
-    onSelectNode?.(nodeId);
-    if (typeof onTargetNode === 'function') onTargetNode(nodeId);
-    setActiveScreen?.(2);
+    const safeId = String(nodeId ?? '174085');
+    if (typeof setSelectedNodeId === 'function') setSelectedNodeId(safeId);
+    if (typeof onSelectNode === 'function') onSelectNode(safeId);
+    if (typeof onTargetNode === 'function') onTargetNode(safeId);
+    if (typeof setActiveScreen === 'function') setActiveScreen(2);
   };
 
   return (
@@ -111,10 +123,8 @@ export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId
         {/* Interactive Pivot Button */}
         <button 
           onClick={() => {
-            const targetId = alerts[0]?.node_id || 174085;
-            onSelectNode?.(targetId);
-            if (typeof onTargetNode === 'function') onTargetNode(targetId);
-            setActiveScreen?.(2);
+            const targetId = alerts[0]?.node_id || '174085';
+            handleSelectAlert(targetId);
           }}
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-medium cursor-pointer active:scale-95"
         >
@@ -204,7 +214,7 @@ export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId
 
               return (
                 <tr
-                  key={alert.node_id}
+                  key={`alert-row-${alert?.node_id ?? index}-${index}`}
                   onClick={() => handleSelectAlert(alert.node_id)}
                   style={{
                     borderBottom: '1px solid rgba(255, 255, 255, 0.04)',

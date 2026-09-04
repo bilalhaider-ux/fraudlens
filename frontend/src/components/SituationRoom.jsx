@@ -10,10 +10,20 @@ import {
 } from 'recharts';
 import rawDrift from '../assets/drift.json';
 
-export default function SituationRoom({ setActiveScreen, onNavigateToGraph }) {
+export default function SituationRoom({ 
+  activeScreen, 
+  setActiveScreen, 
+  selectedNodeId, 
+  setSelectedNodeId, 
+  onNavigateToGraph, 
+  onNavigateToAlerts 
+}) {
   const [showLeakAudit, setShowLeakAudit] = useState(false);
 
   const handleLaunchInvestigation = () => {
+    if (typeof setSelectedNodeId === 'function') {
+      setSelectedNodeId('174085');
+    }
     if (typeof onNavigateToGraph === 'function') {
       onNavigateToGraph('174085');
     }
