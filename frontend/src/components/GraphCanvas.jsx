@@ -18,6 +18,7 @@ import {
   Sliders
 } from 'lucide-react';
 import sampleGraphData from '../assets/investigate_sample.json';
+import nodeExplanations from '../assets/node_explanations.json';
 import NodeExplainabilityDrawer from './NodeExplainabilityDrawer';
 
 const SEED_NODE_ID = String(sampleGraphData?.seed_node || '174085');
@@ -378,18 +379,24 @@ export default function GraphCanvas({
     };
   }, [processedElements, layoutName]);
 
-  // Resilient delayed resize / fit on mount or tab switch
+  // Automated resize and fit hook on mount and tab activation
   useEffect(() => {
     if (!cyRef.current) return;
-    const timer = setTimeout(() => {
+    const handleResize = () => {
       try {
         if (!cyRef.current.destroyed()) {
           cyRef.current.resize();
           cyRef.current.fit(undefined, 30);
         }
       } catch (e) {}
-    }, 150);
-    return () => clearTimeout(timer);
+    };
+    // Initial delayed fit to guarantee DOM layout completion
+    const timer = setTimeout(handleResize, 150);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
+    };
   }, [activeScreen, selectedNodeId]);
 
 
@@ -719,8 +726,8 @@ export default function GraphCanvas({
           {/* Cytoscape Container DOM Element with explicit height ladder */}
           <div
             ref={containerRef}
-            className="w-full h-[380px] sm:h-[450px] lg:h-[650px] min-h-[380px] bg-[#0c121e] rounded-xl relative overflow-hidden"
-            style={{ width: '100%', height: '380px', minHeight: '380px', cursor: 'grab' }}
+            className="w-full h-[360px] sm:h-[480px] lg:h-[620px] min-h-[350px] relative bg-[#060a14] rounded-xl border border-white/10 overflow-hidden"
+            style={{ width: '100%', cursor: 'grab' }}
           />
 
           {/* Diffusion Score Color Legend Bar */}
@@ -814,7 +821,7 @@ export default function GraphCanvas({
                     color: triageDecisions[String(selectedNode.id)] === 'CONFIRMED_FRAUD' ? '#F87171' : '#34D399',
                     border: `1px solid ${triageDecisions[String(selectedNode.id)] === 'CONFIRMED_FRAUD' ? '#EF4444' : '#10B981'}`
                   }}>
-                    {triageDecisions[String(selectedNode.id)] === 'CONFIRMED_FRAUD' ? 'TRIAGED: FRAUD' : 'TRIAGED: DISMISSED'}
+                    {triageDecisions[String(selectedNode.id)] === 'CONFIRMED_FRAUD' ? 'STATUS: CONFIRMED' : 'STATUS: DISMISSED'}
                   </span>
                 )}
                 {selectedNode?.is_seed && (
@@ -960,6 +967,99 @@ export default function GraphCanvas({
                       ℹ️ <strong>Peripheral Network Node</strong>: Low diffusion propagation footprint across timestep 43.
                     </span>
                   )}
+                </div>
+
+                {/* Structured SHAP Drivers & Telemetry Fallback Card */}
+                {(() => {
+                  const nodeId = String(selectedNode.id);
+                  const isHighRisk = (selectedNode.riskScore > 0.4) || (selectedNode.diffusionScore > 0.05) || (selectedNode.trueLabel === 1) || Boolean(selectedNode.is_seed);
+                  const explanationObj = nodeExplanations?.[nodeId] ?? {
+                    node_id: selectedNode.id,
+                    top_risk_drivers: isHighRisk ? [
+                      { feature: 'flow_energy_entropy', shap_value: 0.384, description: 'High directional SVD dispersion' },
+                      { feature: 'neigh_in_max_out_deg', shap_value: 0.312, description: 'Funded directly by high fan-out hub' },
+                      { feature: 'mahalanobis_svd', shap_value: 0.221, description: 'Centroid distance outlier' }
+                    ] : [
+                      { feature: 'in_degree_agg', shap_value: 0.082, description: 'Standard multi-input wallet aggregation' }
+                    ],
+                    top_mitigating_factors: [
+                      { feature: 'raw_1', shap_value: -0.075, description: 'Standard payment transaction baseline' }
+                    ]
+                  };
+                  const drivers = explanationObj.top_risk_drivers ?? [];
+
+                  return (
+                    <div style={{
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      borderRadius: '8px',
+                      padding: '0.75rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '0.45rem'
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>
+                          Top SHAP Risk Drivers
+                        </span>
+                        <span style={{ fontSize: '0.65rem', color: nodeExplanations?.[nodeId] ? '#38BDF8' : '#FBBF24', fontFamily: 'var(--font-mono)' }}>
+                          {nodeExplanations?.[nodeId] ? 'Indexed' : 'Synthesized Fallback'}
+                        </span>
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                        {drivers.map((drv, dIdx) => (
+                          <div key={`driver-${drv.feature}-${dIdx}`} style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            fontSize: '0.72rem',
+                            padding: '0.25rem 0.4rem',
+                            borderRadius: '4px',
+                            background: 'rgba(255, 255, 255, 0.02)'
+                          }}>
+                            <span style={{ color: '#E2E8F0', fontFamily: 'var(--font-mono)' }}>{drv.feature}</span>
+                            <span style={{ color: '#F87171', fontWeight: 700, fontFamily: 'var(--font-mono)' }}>
+                              +{drv.shap_value}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {/* Analyst Quick Triage Action Buttons */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', marginTop: '0.2rem' }}>
+                  <button
+                    onClick={() => handleTriageAction(selectedNode.id, 'CONFIRMED_FRAUD')}
+                    disabled={Boolean(triageDecisions[String(selectedNode.id)])}
+                    className="btn-danger"
+                    style={{
+                      padding: '0.5rem',
+                      borderRadius: '6px',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      cursor: triageDecisions[String(selectedNode.id)] ? 'not-allowed' : 'pointer',
+                      opacity: triageDecisions[String(selectedNode.id)] && triageDecisions[String(selectedNode.id)] !== 'CONFIRMED_FRAUD' ? 0.35 : 1
+                    }}
+                  >
+                    {triageDecisions[String(selectedNode.id)] === 'CONFIRMED_FRAUD' ? 'STATUS: CONFIRMED' : 'Confirm Fraud'}
+                  </button>
+                  <button
+                    onClick={() => handleTriageAction(selectedNode.id, 'DISMISSED')}
+                    disabled={Boolean(triageDecisions[String(selectedNode.id)])}
+                    className="btn-secondary"
+                    style={{
+                      padding: '0.5rem',
+                      borderRadius: '6px',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      cursor: triageDecisions[String(selectedNode.id)] ? 'not-allowed' : 'pointer',
+                      opacity: triageDecisions[String(selectedNode.id)] && triageDecisions[String(selectedNode.id)] !== 'DISMISSED' ? 0.35 : 1
+                    }}
+                  >
+                    {triageDecisions[String(selectedNode.id)] === 'DISMISSED' ? 'STATUS: DISMISSED' : 'Dismiss'}
+                  </button>
                 </div>
 
               </div>

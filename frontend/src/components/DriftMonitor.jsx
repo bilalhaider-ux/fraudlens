@@ -75,7 +75,7 @@ class ChartErrorBoundary extends React.Component {
   }
 }
 
-export default function DriftMonitor({ 
+function DriftMonitorContent({ 
   activeScreen, 
   setActiveScreen, 
   selectedNodeId, 
@@ -421,10 +421,9 @@ export default function DriftMonitor({
           </div>
         </div>
 
-        {/* Recharts Container with safe ErrorBoundary fallback */}
-        <div className="w-full h-[340px] sm:h-[450px] min-h-[320px] relative mt-2">
-          <ChartErrorBoundary>
-            <ResponsiveContainer width="100%" height="100%">
+        {/* Recharts Container with safe explicit dimensions */}
+        <div className="w-full h-[320px] sm:h-[420px] min-h-[300px] relative mt-2">
+          <ResponsiveContainer width="100%" height="100%">
               <LineChart
                 data={chartData}
                 margin={{ top: 25, right: isMobile ? 12 : 30, left: isMobile ? -10 : 10, bottom: 20 }}
@@ -526,7 +525,6 @@ export default function DriftMonitor({
                 )}
               </LineChart>
             </ResponsiveContainer>
-          </ChartErrorBoundary>
         </div>
 
         {/* Informative explanation footer */}
@@ -556,5 +554,13 @@ export default function DriftMonitor({
       </div>
 
     </div>
+  );
+}
+
+export default function DriftMonitor(props) {
+  return (
+    <ChartErrorBoundary>
+      <DriftMonitorContent {...props} />
+    </ChartErrorBoundary>
   );
 }

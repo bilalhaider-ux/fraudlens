@@ -123,12 +123,14 @@ export default function AlertsQueue({
         {/* Interactive Pivot Button */}
         <button 
           onClick={() => {
-            const targetId = alerts[0]?.node_id || '174085';
-            handleSelectAlert(targetId);
+            const targetId = alerts[0]?.node_id || 174085;
+            onSelectNode?.(targetId);
+            if (typeof setSelectedNodeId === 'function') setSelectedNodeId(targetId);
+            setActiveScreen?.(2);
           }}
           className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-medium cursor-pointer active:scale-95"
         >
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping shrink-0" />
           <span>Interactive: Pivot Top Alert to Graph Canvas</span>
         </button>
       </div>

@@ -180,7 +180,7 @@ export default function SituationRoom({
 
         {/* Defensive Scroll Table */}
         <div className="w-full overflow-x-auto rounded-lg border border-white/5 scrollbar-none">
-          <table className="w-full min-w-[540px] text-left text-xs border-collapse">
+          <table className="w-full min-w-[520px] text-left text-xs border-collapse">
             <thead>
               <tr className="bg-white/5 text-slate-400 border-b border-white/10">
                 <th className="py-2.5 px-3 font-semibold">System / Implementation</th>

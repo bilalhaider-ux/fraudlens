@@ -520,8 +520,8 @@ export default function NodeExplainabilityDrawer({ node, isOpen, onClose, onTria
             {currentTriage === 'CONFIRMED_FRAUD' ? <ShieldAlert size={16} /> : <CheckCircle size={16} />}
             <span>
               {currentTriage === 'CONFIRMED_FRAUD' 
-                ? 'Triage Decision: Confirmed Fraudulent Entity (Quarantined)' 
-                : 'Triage Decision: Marked Safe (Dismissed From Queue)'}
+                ? 'STATUS: CONFIRMED (Fraudulent Entity Quarantined)' 
+                : 'STATUS: DISMISSED (Marked Safe From Queue)'}
             </span>
           </div>
         )}
@@ -559,7 +559,7 @@ export default function NodeExplainabilityDrawer({ node, isOpen, onClose, onTria
             }}
           >
             <ShieldAlert size={16} />
-            <span>{currentTriage === 'CONFIRMED_FRAUD' ? 'Fraud Confirmed ✓' : 'Confirm Fraud'}</span>
+            <span>{currentTriage === 'CONFIRMED_FRAUD' ? 'STATUS: CONFIRMED' : 'Confirm Fraud'}</span>
           </button>
 
           <button
@@ -580,7 +580,7 @@ export default function NodeExplainabilityDrawer({ node, isOpen, onClose, onTria
             }}
           >
             <CheckCircle size={16} color="#10B981" />
-            <span>{currentTriage === 'DISMISSED' ? 'Dismissed ✓' : 'Dismiss'}</span>
+            <span>{currentTriage === 'DISMISSED' ? 'STATUS: DISMISSED' : 'Dismiss'}</span>
           </button>
         </div>
       </div>
