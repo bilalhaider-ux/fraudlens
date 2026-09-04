@@ -173,61 +173,65 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
       </div>
 
       {/* Alerts Table */}
-      <div className="glass-panel" style={{ padding: 0, overflow: 'hidden' }}>
-        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
-          <table style={{ width: '100%', minWidth: '640px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
-            <thead>
-              <tr style={{
-                background: 'rgba(255, 255, 255, 0.02)',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                color: 'var(--text-muted)',
-                fontSize: '0.72rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em'
-              }}>
-                <th style={{ padding: '0.9rem 1.25rem' }}>Node ID</th>
-                <th style={{ padding: '0.9rem 1.25rem' }}>Timestep</th>
-                <th style={{ padding: '0.9rem 1.25rem' }}>Risk Score</th>
-                <th style={{ padding: '0.9rem 1.25rem' }}>Classification</th>
-                <th style={{ padding: '0.9rem 1.25rem' }}>Forensic Priority</th>
-                <th style={{ padding: '0.9rem 1.25rem', textAlign: 'right' }}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredAlerts.map((alert, index) => {
-                const isSelected = String(selectedNodeId) === String(alert.node_id);
-                const badge = getLabelBadge(alert.true_label);
+      <div className="w-full overflow-x-auto border border-white/10 rounded-xl glass-panel" style={{ padding: 0 }}>
+        <table className="min-w-[650px]" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
+          <thead>
+            <tr style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+              color: 'var(--text-muted)',
+              fontSize: '0.72rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em'
+            }}>
+              <th style={{ padding: '0.9rem 1.25rem' }}>Node ID</th>
+              <th style={{ padding: '0.9rem 1.25rem' }}>Timestep</th>
+              <th style={{ padding: '0.9rem 1.25rem' }}>Risk Score</th>
+              <th style={{ padding: '0.9rem 1.25rem' }}>Classification</th>
+              <th style={{ padding: '0.9rem 1.25rem' }}>Forensic Priority</th>
+              <th style={{ padding: '0.9rem 1.25rem', textAlign: 'right' }}>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredAlerts.map((alert, index) => {
+              const isSelected = String(selectedNodeId) === String(alert.node_id);
+              const badge = getLabelBadge(alert.true_label);
 
-                return (
-                  <tr
-                    key={alert.node_id}
-                    onClick={() => handleRowClick(alert.node_id)}
-                    style={{
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
-                      background: isSelected 
-                        ? 'rgba(6, 182, 212, 0.15)' 
-                        : (index % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.01)'),
-                      cursor: 'pointer',
-                      transition: 'background 0.2s ease, transform 0.1s ease',
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!isSelected) e.currentTarget.style.background = 'rgba(6, 182, 212, 0.08)';
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!isSelected) e.currentTarget.style.background = index % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.01)';
-                    }}
-                  >
-                    {/* Node ID */}
-                    <td style={{ padding: '0.9rem 1.25rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{
+              return (
+                <tr
+                  key={alert.node_id}
+                  onClick={() => handleRowClick(alert.node_id)}
+                  style={{
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
+                    background: isSelected 
+                      ? 'rgba(6, 182, 212, 0.15)' 
+                      : (index % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.01)'),
+                    cursor: 'pointer',
+                    transition: 'background 0.2s ease, transform 0.1s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isSelected) e.currentTarget.style.background = 'rgba(6, 182, 212, 0.08)';
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isSelected) e.currentTarget.style.background = index % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.01)';
+                  }}
+                >
+                  {/* Node ID */}
+                  <td style={{ padding: '0.9rem 1.25rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <span 
+                        className="max-w-[120px] truncate"
+                        title={`#${alert.node_id}`}
+                        style={{
                           fontFamily: 'var(--font-mono)',
                           fontWeight: 800,
                           fontSize: '0.9rem',
-                          color: '#38BDF8'
-                        }}>
-                          #{alert.node_id}
-                        </span>
+                          color: '#38BDF8',
+                          display: 'inline-block'
+                        }}
+                      >
+                        #{alert.node_id}
+                      </span>
                         {isSelected && (
                           <span style={{
                             fontSize: '0.65rem',
@@ -331,7 +335,6 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
             </tbody>
           </table>
         </div>
-      </div>
 
     </div>
   );

@@ -508,10 +508,10 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
       </div>
 
       {/* Main Canvas & Inspector Layout */}
-      <div className="canvas-layout-grid">
+      <div className="flex flex-col lg:flex-row gap-4">
         
         {/* Left: Cytoscape Graph Canvas Area */}
-        <div className="glass-panel" style={{
+        <div className="glass-panel flex-1 min-w-0" style={{
           position: 'relative',
           borderRadius: '12px',
           overflow: 'hidden',
@@ -636,9 +636,9 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
           {/* Cytoscape Container DOM Element */}
           <div
             ref={containerRef}
+            className="h-[320px] sm:h-[450px] lg:h-[calc(100vh-180px)] w-full"
             style={{
               width: '100%',
-              height: '560px',
               cursor: 'grab'
             }}
           />
@@ -715,7 +715,7 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
 
 
         {/* Right: Active Node Detail Inspector */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div className="w-full lg:w-96" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           
           <div className="glass-panel" style={{ padding: '1.25rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>

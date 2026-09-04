@@ -265,7 +265,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4.25rem;
+  min-height: 3.5rem;
   max-width: 1800px;
   margin: 0 auto;
 }
@@ -274,9 +274,9 @@ body {
   .navbar-container {
     flex-direction: column;
     align-items: stretch;
-    height: auto;
-    gap: 0.6rem;
-    padding: 0.5rem 0;
+    min-height: auto;
+    gap: 0.4rem;
+    padding: 0.25rem 0;
   }
 }
 
@@ -406,4 +406,20 @@ body {
   .mobile-drawer-handle {
     display: none !important;
   }
+}
+
+/* Zero-Layout-Shift Strict Responsive Utilities */
+.h-\[320px\] { height: 320px; }
+.h-\[240px\] { height: 240px; }
+.min-w-\[650px\] { min-width: 650px; }
+.max-w-\[120px\] { max-width: 120px; }
+
+@media (min-width: 640px) {
+  .sm\:h-\[450px\] { height: 450px; }
+  .sm\:h-\[300px\] { height: 300px; }
+}
+
+@media (min-width: 1024px) {
+  .lg\:h-\[calc\(100vh-180px\)\] { height: calc(100vh - 180px); }
+  .lg\:w-96 { width: 24rem; }
 }

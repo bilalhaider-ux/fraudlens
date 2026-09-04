@@ -41,15 +41,14 @@ export default function Navbar({
   const threat = getThreatBadge(threatLevel);
 
   return (
-    <header style={{
-      background: 'rgba(10, 14, 23, 0.92)',
-      backdropFilter: 'blur(20px)',
-      borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-      position: 'sticky',
-      top: 0,
-      zIndex: 100,
-      padding: '0 1rem'
-    }}>
+    <header 
+      className="py-2 md:py-4 px-4 sticky top-0 z-[100]"
+      style={{
+        background: 'rgba(10, 14, 23, 0.92)',
+        backdropFilter: 'blur(20px)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+      }}
+    >
       <div className="navbar-container">
         {/* Logo & Brand */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -109,7 +108,7 @@ export default function Navbar({
         </div>
 
         {/* Navigation Tabs */}
-        <nav className="nav-pill-bar no-scrollbar">
+        <nav className="flex overflow-x-auto no-scrollbar whitespace-nowrap gap-2 pb-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -117,22 +116,14 @@ export default function Navbar({
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
+                className={`flex items-center gap-2 rounded-lg font-medium cursor-pointer transition-all duration-150 shrink-0 text-xs px-2.5 py-1.5 md:text-sm md:px-4 md:py-2 ${
+                  isActive
+                    ? 'border border-cyan-500/45 bg-cyan-500/15 text-[#38BDF8] font-bold'
+                    : 'border border-transparent bg-transparent text-slate-400 hover:text-slate-200'
+                }`}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.55rem 0.95rem',
-                  borderRadius: '8px',
-                  border: isActive ? '1px solid rgba(6, 182, 212, 0.45)' : '1px solid transparent',
-                  background: isActive ? 'rgba(6, 182, 212, 0.15)' : 'transparent',
-                  color: isActive ? '#38BDF8' : 'var(--text-secondary)',
-                  fontWeight: isActive ? 700 : 500,
-                  fontSize: '0.82rem',
                   whiteSpace: 'nowrap',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s ease',
-                  position: 'relative',
-                  flexShrink: 0
+                  position: 'relative'
                 }}
               >
                 <Icon size={16} color={isActive ? '#38BDF8' : '#94A3B8'} />

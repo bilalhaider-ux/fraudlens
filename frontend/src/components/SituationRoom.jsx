@@ -136,7 +136,7 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
       </div>
 
       {/* 2. Hero 4 KPI Stat Cards */}
-      <div className="kpi-grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 kpi-grid">
         {/* KPI 1: Total Transactions Monitored */}
         <div className="glass-panel" style={{ padding: '1.35rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -260,17 +260,16 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
           </div>
 
           <div 
-            className="h-[260px]" 
+            className="h-[240px] sm:h-[300px]" 
             style={{ 
               width: '100%', 
-              height: '260px', 
               position: 'relative', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center' 
             }}
           >
-            <ResponsiveContainer width="100%" height={260}>
+            <ResponsiveContainer width="100%" height="100%">
               <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                 <Pie
                   data={datasetSplitData}
@@ -376,8 +375,8 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
             </div>
           </div>
 
-          <div className="h-[260px]" style={{ width: '100%', height: '260px', position: 'relative' }}>
-            <ResponsiveContainer width="100%" height={260}>
+          <div className="h-[240px] sm:h-[300px]" style={{ width: '100%', position: 'relative' }}>
+            <ResponsiveContainer width="100%" height="100%">
               <LineChart data={sparklineData} margin={{ top: 20, right: 25, left: -15, bottom: 10 }}>
                 <XAxis 
                   dataKey="timestep" 
