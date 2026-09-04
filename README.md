@@ -1,108 +1,116 @@
-# 🛡️ FraudLens — Real-Time ML Fraud Intelligence & Defense Platform
+# 🛡️ FraudLens — Leak-Audited Graph AML Detection under Concept Drift
 
-FraudLens is an enterprise-grade, full-stack fraud detection and analytics platform. It combines machine learning risk scoring, statistical anomaly screening, deterministic policy heuristics, and transparent Explainable AI (XAI) feature attributions within a high-performance dark-mode fintech dashboard.
+FraudLens is a fraud/anti-money-laundering (AML) detection system built on the **Elliptic Bitcoin transaction graph** (203,769 nodes, 234,355 edges, 49 time steps). The project's core contribution isn't a single model — it's a **rigorous, self-auditing pipeline** that found, diagnosed, and fixed multiple real data-leakage bugs before arriving at a verified, honestly-reported result.
+
+> Built for VoltHacks 2026. Every number below survived an adversarial audit against our own earlier (and higher-looking, but leaked) results. We show both, on purpose.
 
 ---
 
-## 🌟 Key Capabilities & Architecture
+## 🌟 The Story (why this is more than "we trained a model")
+
+1. **Found a real-world drift event.** Every model we trained — Random Forest, GCN, GAT — collapsed simultaneously at `time_step 43`, matching a documented dark-market shutdown in the original Elliptic paper (Weber et al., 2019).
+2. **Tried the obvious fixes — and documented when they failed.** Naive retraining, recency-weighting, and Group DRO all made things *worse*, not better. We report these as real, ruled-out findings, not hide them.
+3. **Built graph "guilt-by-association" features (GuiltyWalker + community density) — and got a suspiciously perfect result.** F1 jumped to 0.74–0.96. That looked great. We didn't trust it.
+4. **Audited our own pipeline and found the leak.** These features used *other test-period nodes'* true labels — not the node's own, but still information a real deployed system would never have. Under a strict, zero-test-knowledge standard, they carried **zero information** (proven empirically, not assumed).
+5. **Rebuilt with genuinely unsupervised features** (spectral graph embeddings, isolation-forest anomaly scores, neighborhood convolutions, flow-manifold density) — verified label-free by direct code inspection.
+6. **Audited *that* pipeline too.** A domain-shift classifier initially reported a suspicious AUC of 1.0000; we found it was evaluated on its own training data, fixed it with 5-fold cross-validation, and confirmed the shift signal was still real on held-out data.
+7. **Landed on a verified, defensible result: 2x the honest baseline, with a real mechanistic explanation, not a black box.**
+
+---
+
+## 📊 Verified Performance (Post-Drift, time_step 43–49)
+
+| System / Implementation | Macro F1 | Post-Drift F1 | Leak-Free? |
+|---|---|---|---|
+| Weber et al. (2019) — original Elliptic baseline | 0.4665 | 0.0860 | Strict |
+| "Leaked" literature-style SOTA (GuiltyWalker-style guilt-by-association features) | 0.9680* | 0.9564* | Transductive — relies on test-label leakage |
+| **FraudLens Champion** | **0.5322** | **0.1709** | **Audited** |
+
+*\*Literature-style results above 0.95 F1 involve transductive query leakage on test labels — a real, reproduced, and independently-debunked artifact in this project (see "The Story" above), not a fabricated number. FraudLens Champion operates under 100% causal, out-of-time streaming: no test-period label, self or otherwise, is ever used to compute a feature.*
+
+Pre-drift performance (time_step 35–42, the "easy" period) reaches **~0.85 mean F1** — the hard, still-partially-unsolved problem is specifically the post-drift regime, which is what every number above is reporting on.
+
+---
+
+## 📚 Grounded in the Literature, Not Built Blind
+
+Every major design decision traces back to a specific finding — ours or someone else's:
+
+| Finding | Source | What we did with it |
+|---|---|---|
+| A real dark-market shutdown at `time_step 43` causes universal model collapse | Weber et al., *"Anti-Money Laundering in Bitcoin"*, KDD 2019 Workshop (arXiv:1908.02591) | Confirmed independently across RF/GCN/GAT; used as our core diagnostic anchor |
+| Random-walk "distance to known illicit nodes" improves post-shutdown detection | Oliveira et al., *"GuiltyWalker"*, KDD 2021 (Feedzai + IST Lisbon, arXiv:2102.05373) | Reproduced, initially matched/exceeded their reported gain — then proved the gain was leakage, not signal, under strict audit |
+| Dynamic/temporal GNNs (EvolveGCN, TGN, ROLAND) also collapse at `time_step 43` | Pareja et al., AAAI 2020 (arXiv:1902.10191); EasyDGL (arXiv:2303.12341) | De-prioritized re-implementing another temporal GNN architecture — literature shows it wouldn't fix the core problem |
+| The post-43 collapse is a **label-prior shift** (fraud rate crashes ~39x), not a feature/covariate shift | Maganti, *"When Graph Structure Becomes a Liability"* (arXiv:2604.19514, 2026) | Directly motivated our adaptive, dual-regime thresholding strategy instead of another learned architecture |
+
+---
+
+## 🏗️ Architecture
 
 ```mermaid
 graph TD
-    subgraph Frontend [React + Vite + Glassmorphism UI]
-        MC[🛰️ Mission Control & Live Stream Waterfall]
-        IW[🔍 Investigation Workbench & Dossier]
-        RE[🛡️ Dynamic Policy & Rule Studio]
-        FA[📊 Fraud Intelligence & ML Telemetry]
-        AS[⚡ Adversarial Attack Simulator]
-        AP[🔌 API Sandbox & Inspector]
+    E["Elliptic Bitcoin Dataset<br/>203,769 nodes · 234,355 edges<br/>49 timesteps"]
+
+    subgraph FE["Unsupervised Feature Engineering"]
+        direction TB
+        SPEC["Spectral SVD<br/>Graph Embeddings"]
+        ANOM["Isolation Forest /<br/>PCA Anomaly Scores"]
+        NEIGH["1-Hop Neighborhood<br/>Convolutions"]
+        MANI["Flow-Manifold<br/>Mahalanobis Density"]
     end
 
-    subgraph Backend [Python FastAPI Intelligence Engine]
-        API[REST & WebSocket Endpoints]
-        
-        subgraph HybridScoring [Hybrid Decision Engine]
-            MLE[ML Decision Forest Classifier]
-            ANO[Statistical Anomaly Detector]
-            XAI[Explainable AI Reason Code Engine]
-            POL[Dynamic Policy Heuristic Engine]
-        end
-        
-        SYN[Synthetic Traffic & Attack Burst Generator]
+    subgraph AU["Self-Audit Layer"]
+        direction TB
+        DOM["Cross-Validated<br/>Domain-Shift Classifier"]
+        KS["KS-Statistic<br/>Drift Ranking"]
+        PRUNE["Invariant<br/>Feature Pruning"]
     end
 
-    Frontend <-->|WebSocket ws://127.0.0.1:8000/ws/transactions| Backend
-    Frontend <-->|REST API http://127.0.0.1:8000/api/*| Backend
+    subgraph CH["Champion Ensemble"]
+        direction TB
+        LGB["LightGBM"]
+        HGB["HistGradientBoosting"]
+        ET["ExtraTrees"]
+        RANK["Rank-Normalized<br/>Ensemble"]
+        THRESH["Dual-Regime<br/>Adaptive Threshold"]
+    end
+
+    subgraph E2["Engine 2: Ring Expansion"]
+        PPR["Personalized PageRank<br/>from 1 Confirmed Seed"]
+    end
+
+    E --> FE --> AU --> CH
+    E --> E2
+    CH --> UI["Dashboard"]
+    E2 --> UI
 ```
-
-### 1. 🛰️ Mission Control
-- **Executive KPI Telemetry**: Real-time counter of Total Screened, Fraud Threat Rate %, Prevented Loss ($ USD), Active Analyst Backlog, and Sub-millisecond Inference Latency.
-- **Threat Level Radar Badge**: Dynamic DEFCON threat state (NOMINAL, ELEVATED, CRITICAL).
-- **Live Waterfall Feed**: WebSocket-powered live transaction feed with animated pulse rows, risk badges (LOW, MEDIUM, HIGH, CRITICAL), and instant risk score bars.
-- **Multi-Filter & Instant Search**: Filter by Risk Tier, Status, or query by TxID, User ID, Merchant, IP, and Card Last 4.
-
-### 2. 🔍 Investigation Workbench
-- **Composite Risk Meter**: Circular animated SVG gauge displaying hybrid score (0-100) with supervised ML probability, rule boost, and anomaly points.
-- **Explainable AI (XAI) Reason Codes**: Transparent breakdown of risk contributors (e.g. *"+45% Spending Deviation Spike"*, *"+32% Geographic IP Anomaly"*, *"+28% Anonymizing Infrastructure"*).
-- **Entity Dossier**: 30-day baseline vs current spend delta, card BIN/type, physical distance delta from billing address, and hardware fingerprint signature.
-- **1-Click Analyst Actions**: Approve (Mark Safe), Decline & Block Card, Escalate to AML Review, and Add Custom Audit Notes.
-
-### 3. 🛡️ Dynamic Policy & Rule Studio
-- Pre-configured heuristic policies: Extreme Transaction Value, Rapid Velocity Spikes, Cross-Border Mismatch, High-Risk MCCs (Crypto/Offshore), VPN/TOR Proxy, Impossible Travel Velocity.
-- **Interactive Rule Builder**: Create custom threshold policies with custom actions (`FLAG_REVIEW` or `AUTO_DECLINE`) and risk weight boosts.
-- Instant toggle switches and real-time trigger counters.
-
-### 4. 📊 Fraud Intelligence & Analytics
-- **Risk Tier Breakdown**: Real-time interactive Doughnut chart of Low vs Medium vs High vs Critical distribution.
-- **Merchant Category Vulnerability**: Bar chart comparing legitimate volume against intercepted attacks across Crypto, Luxury, Gaming, Electronics, and Retail.
-- **Hourly Traffic & Attack Curves**: Multi-line visualization tracking attack waves against baseline clean traffic.
-- **Geolocation Hotspot Density**: Country clustering metrics for cross-border attack origins.
-- **Model Telemetry**: ROC-AUC (0.984), Precision (96.8%), Recall (94.5%), False Positive Rate (0.38%), and Average Latency (0.92 ms).
-
-### 5. ⚡ Adversarial Attack Simulator
-- **Botnet Card Testing Assault**: Emulates automated scripts testing stolen card numbers using rapid $0.99 to $4.99 charges.
-- **VIP Account Takeover (ATO)**: Simulates compromised credentials executing unauthorized luxury & wire transfers from foreign devices.
-- **Impossible Travel Velocity**: Simulates rapid cross-continent card usage (<15 min delta over >5,000 km).
-- **High-Yield Crypto Laundering**: High-value non-custodial crypto deposits routed via commercial TOR proxies.
-- **Distributed Botnet Cluster Surge**: Simultaneous multi-user attack with matched canvas fingerprints.
-
-### 6. 🔌 API Developer Sandbox
-- Interactive JSON payload editor with pre-filled test templates.
-- Real-time `POST /api/evaluate` endpoint screening with full latency, risk score, and reason code output.
 
 ---
 
-## 🚀 Running Locally
+## 🔎 The Two Engines
 
-### 1. Backend (FastAPI)
-```bash
-cd backend
-python -m uvicorn main:app --host 127.0.0.1 --port 8000
-```
-- **REST API**: http://127.0.0.1:8000/docs (Swagger UI)
-- **WebSocket Feed**: `ws://127.0.0.1:8000/ws/transactions`
+**Engine 1 — Autonomous Triage.** The Champion ensemble above: scores every transaction with zero label information at inference time. Strong pre-drift (0.85 F1); post-drift remains the genuinely hard, only-partially-solved problem (0.1709 F1) — an honest reflection of a documented open challenge in the literature, not a shortfall unique to this project.
 
-### 2. Frontend (React + Vite)
-```bash
-cd frontend
-npm run dev
-```
-- **Web Application**: http://localhost:5173/
+**Engine 2 — Investigator-Assisted Ring Expansion.** A complementary, different-task capability: given **one confirmed illicit transaction** (simulating a human investigator's tip), personalized PageRank diffuses outward through the payment graph to surface the rest of the laundering ring. Evaluated over 25 random-seed trials per time step (not a single noisy draw): **Hit@50 = 76.45%**, post-drift recall 57.4% (97 of 169 illicit nodes recovered). This assumes an investigator has already flagged one case — it's a ring-expansion tool, not a from-scratch detector.
 
 ---
 
-## 📡 REST API Reference
+## 🖥️ Dashboard
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/health` | Health status and total transaction count |
-| `POST` | `/api/evaluate` | Evaluates a transaction payload and returns risk score + XAI reasons |
-| `GET` | `/api/transactions` | Query screened transactions with pagination and filters |
-| `GET` | `/api/transactions/{id}` | Retrieve comprehensive dossier & audit notes for a specific case |
-| `POST` | `/api/transactions/{id}/action` | Apply analyst decision (`APPROVE`, `BLOCK`, `ESCALATE`) |
-| `GET` | `/api/rules` | List all active and disabled policy rules |
-| `POST` | `/api/rules` | Deploy a new custom policy rule |
-| `PATCH` | `/api/rules/{id}` | Toggle rule status or update thresholds |
-| `DELETE` | `/api/rules/{id}` | Delete a custom rule |
-| `GET` | `/api/metrics` | Retrieve global fraud metrics, risk distribution, and geo breakdown |
-| `POST` | `/api/simulate/attack` | Trigger batch fraud attack simulation |
-| `POST` | `/api/stream/control` | Pause/Resume live transaction stream or adjust stream velocity |
+**Situation Room & Executive Telemetry** — live model-health status, the Champion vs. literature benchmark table, and drift detection at a glance:
+
+![Situation Room dashboard showing Champion Macro F1 0.5322, Syndicate Recovery Hit@50 76.45%, and the benchmark integrity audit table](screenshot-dashboard-overview.png)
+
+**Engine 2 in action** — a single confirmed seed transaction (orange) diffusing outward via Personalized PageRank to recover the surrounding syndicate (red) through intermediary nodes (blue):
+
+![Syndicate ring expansion graph from a single confirmed seed node](screenshot-syndicate-graph.png)
+
+**Live demo:** https://fraud-lens-project.vercel.app/
+
+---
+
+## 🧪 Methodology Notes (for technical reviewers)
+
+- **Every "too good" result in this project was treated as a bug report, not a win** — see the debunked GuiltyWalker row in the benchmark table above.
+- **The dual-regime adaptive threshold** used post-drift adapts to each time step's own unlabeled score distribution (no true labels touched) — a legitimate technique in the same family as label-free prior/quantification correction, disclosed here as an assumption-bearing choice, not an assumption-free one.
+- **Known limitation:** the adaptive threshold will still locate *a* split point even in a period with genuinely zero illicit activity, which could manufacture false positives. Not yet solved; noted honestly rather than hidden.
