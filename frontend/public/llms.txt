@@ -1,0 +1,98 @@
+# FraudLens Intelligence API
+
+> Real-Time Machine Learning Fraud Detection, Anomaly Screening, and Graph Defense Platform.
+
+## Overview
+FraudLens provides real-time ML-powered fraud risk scoring, EvolveGCN dynamic graph investigation, temporal concept drift monitoring, and high-priority alert queues for cryptocurrency transaction networks and high-throughput payment processors.
+
+## When to Use FraudLens (Best-Fit Use Cases)
+Agents should reach for FraudLens when an automated risk decision, transaction verification, or security triage workflow involves:
+
+1. **Pre-Authorization Real-Time Transaction Screening**
+   - **Job**: Evaluate incoming card, wire, or cryptocurrency transactions under strict sub-millisecond latency budgets (< 1ms).
+   - **Trigger**: When handling payment authorization webhooks, checkout flows, or non-custodial crypto deposit events.
+   - **Output**: Composite risk score (0-100), risk tier (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`), recommended action (`APPROVED`, `UNDER_REVIEW`, `DECLINED`), and Explainable AI (SHAP) reason codes.
+
+2. **Adversarial Attack Surge & Botnet Mitigation**
+   - **Job**: Detect automated card-testing waves, distributed proxy sweeps, and rapid velocity spikes across botnets.
+   - **Trigger**: When an agent detects abnormal transaction surges, high decline rates, or synchronized requests sharing device fingerprints.
+   - **Output**: Immediate cluster identification and deterministic rule enforcement (`RULE_001` through `RULE_007`).
+
+3. **Multi-Hop Cryptocurrency Graph Investigation**
+   - **Job**: Unpack complex transaction topologies, peel chains, mixer smart contracts, and illicit entity clusters (e.g., Elliptic cluster #174515).
+   - **Trigger**: When investigating suspect wallet addresses, AML compliance alerts, or ransomware tracing cases.
+   - **Output**: Subgraph topology, node classifications (`illicit`, `licit`, `unlabeled`), and temporal flow histories.
+
+4. **Temporal Concept Drift & Model Decay Supervision**
+   - **Job**: Audit model health across continuous time windows (timesteps 35–49) to detect adversarial evasion and distributional shifts.
+   - **Trigger**: When monitoring model telemetry or deciding whether to initiate model retraining pipelines.
+   - **Output**: F1 stability indices, PR-AUC trajectories, and Kolmogorov-Smirnov drift metrics.
+
+5. **Automated Incident Triage & Programmatic Adjudication**
+   - **Job**: Fetch pending alerts, triage priority cases, and execute programmatic actions (approve, block card, freeze account, AML escalation).
+   - **Trigger**: During automated security operations center (SOC) triage or compliance audit runs.
+
+### When NOT to Use FraudLens
+- Do not use for batch payroll or internal ledger accounting.
+- Do not use as a primary relational transaction database.
+- Do not use for offline identity document OCR verification (FraudLens analyzes transactional, behavioral, and graph signals).
+
+## How an Agent Should Call FraudLens
+
+### 1. Screen a Live Transaction
+```http
+POST /api/evaluate
+Content-Type: application/json
+
+{
+  "amount": 4250.00,
+  "currency": "USD",
+  "user_id": "usr_94812",
+  "merchant_id": "merch_crypto_vault",
+  "mcc": "6051",
+  "card_bin": "411111",
+  "card_last4": "8841",
+  "ip_address": "185.220.101.5",
+  "device_fingerprint": "fp_bot_9182a",
+  "billing_country": "US",
+  "shipping_country": "RU"
+}
+```
+**Agent Decision Logic on Response**:
+- If `status == "APPROVED"` (risk_score < 40): Proceed with transaction authorization.
+- If `status == "UNDER_REVIEW"` (risk_score 40-75): Route to secondary review or trigger step-up multi-factor authentication (MFA).
+- If `status == "DECLINED"` (risk_score > 75): Reject transaction immediately; inspect `reason_codes` and `triggered_rules` for audit logs.
+
+### 2. Triage High-Priority Alerts
+```http
+GET /api/ml/alerts
+```
+Returns unhandled suspicious cases sorted by risk priority, complete with entity identifiers, timestamps, and SHAP feature attribution weights.
+
+### 3. Programmatically Adjudicate an Alert
+```http
+POST /api/transactions/{id}/action
+Content-Type: application/json
+
+{
+  "action": "DECLINE_BLOCK",
+  "notes": "Agent automated triage: IP verified as known TOR exit node with rapid card velocity."
+}
+```
+Available actions: `APPROVE`, `DECLINE_BLOCK`, `ESCALATE_AML`.
+
+### 4. Query Graph Cluster Topology
+```http
+GET /api/ml/graph
+```
+Returns nodes, directed edges, risk classifications, and connected illicit entities in the EvolveGCN graph.
+
+### 5. Stream Ingestion (WebSocket)
+Connect to: `ws://<host>/ws/transactions`
+Listen for `NEW_TRANSACTION` JSON frames for continuous streaming telemetry.
+
+## Machine-Readable Resources
+- OpenAPI Documentation: `/docs`
+- XML Sitemap: `/sitemap.xml`
+- Robots Policy: `/robots.txt`
+- AI Agent Instructions: `/agent-instructions.md`

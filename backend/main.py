@@ -6,7 +6,9 @@ import uuid
 from datetime import datetime
 from typing import List, Optional, Dict, Any
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Query, Request
+from fastapi.responses import HTMLResponse, Response, PlainTextResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -42,6 +44,40 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+MARKDOWN_404 = """# 404 Not Found
+
+The requested resource was not found on this server.
+
+## Available Resources & Documentation
+- **API Documentation**: [/docs](/docs)
+- **Agent Index (llms.txt)**: [/llms.txt](/llms.txt)
+- **Sitemap**: [/sitemap.xml](/sitemap.xml)
+- **Homepage**: [/](/)
+"""
+
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request, exc):
+    if exc.status_code == 404:
+        return Response(
+            content=MARKDOWN_404,
+            status_code=404,
+            media_type="text/markdown; charset=utf-8",
+            headers={"Vary": "Accept, Accept-Encoding"}
+        )
+    return Response(
+        content=str(exc.detail),
+        status_code=exc.status_code
+    )
+
+@app.exception_handler(404)
+async def not_found_handler(request, exc):
+    return Response(
+        content=MARKDOWN_404,
+        status_code=404,
+        media_type="text/markdown; charset=utf-8",
+        headers={"Vary": "Accept, Accept-Encoding"}
+    )
 
 # Core State & Services
 ml_engine = MLEngine()
@@ -219,6 +255,370 @@ async def background_stream_loop():
 import random
 
 # ================= REST API ROUTES =================
+
+MARKDOWN_HOMEPAGE = """# FraudLens — Real-Time ML Fraud Intelligence & Defense Platform
+
+FraudLens is an enterprise-grade autonomous fraud detection and financial risk intelligence platform. Designed for high-throughput cryptocurrency transaction networks, banking rails, and payment processors, FraudLens executes real-time anomaly screening, supervised machine learning inference, temporal drift supervision, and deterministic policy rule enforcement across high-velocity transaction streams.
+
+## Core Autonomous Defense Capabilities
+
+### 1. Situation Room & Executive Telemetry
+The Situation Room provides centralized situational awareness over the Elliptic cryptocurrency transaction graph, actively monitoring 203,769 entities and supervising transactions across timesteps 35 through 49. Risk operations teams track macro perimeter states, risk class distributions, prevented financial losses, and anomalous velocity spikes with sub-millisecond telemetry feeds.
+
+### 2. Graph Neural Network Investigation
+Leveraging EvolveGCN dynamic graph architectures, FraudLens inspects high-risk clusters, laundering topologies, and multi-hop fund routing. Entity embeddings reveal complex structural associations between synthetic identities, mixer smart contracts, and sanctioned counterparties before malicious transfers can settle.
+
+### 3. Temporal Concept Drift Supervision
+Adversarial attack strategies evolve over time, causing stationary machine learning models to decay. FraudLens continuously tracks F1-score stability, Precision-Recall AUC trajectories, and Kolmogorov-Smirnov feature distribution shifts across sliding temporal windows to ensure consistent model efficacy.
+
+### 4. Explainable AI Alerts Queue & Incident Workbench
+High-priority alerts are augmented with transparent SHAP feature attributions, anomaly factor decompositions, and policy violation logs. Analysts can execute single-click decisions to approve transactions, freeze suspicious accounts, or escalate complex syndicates to anti-money laundering review.
+
+## Operational Architecture & Performance
+
+### Sub-Millisecond Inference Pipeline
+Combining gradient-boosted decision trees, graph neural network embeddings, statistical anomaly estimators, and deterministic heuristic matrices, FraudLens screens incoming transaction requests in under 0.95 milliseconds while sustaining a 96.8% precision rate in high-volume production environments.
+"""
+
+HTML_HOMEPAGE = """<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FraudLens | Real-Time ML Fraud Intelligence & Defense Platform</title>
+    <meta name="description" content="Next-generation real-time transaction fraud detection, anomaly screening, and explainable AI risk scoring dashboard." />
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #080B11; color: #F8FAFC; margin: 0; padding: 2rem 1.5rem; line-height: 1.6; }
+      main { max-width: 52rem; margin: 0 auto; }
+      h1 { font-size: 1.875rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.75rem; letter-spacing: -0.025em; }
+      h2 { font-size: 1.5rem; font-weight: 600; color: #06B6D4; margin-top: 2rem; margin-bottom: 1rem; }
+      h3 { font-size: 1.125rem; font-weight: 600; color: #FFFFFF; margin-top: 1.25rem; margin-bottom: 0.25rem; }
+      p { font-size: 0.9375rem; color: #94A3B8; margin-top: 0.25rem; margin-bottom: 1rem; }
+      article { background: #0D1424; border: 1px solid rgba(255,255,255,0.1); border-radius: 0.75rem; padding: 1rem 1.25rem; margin-bottom: 1rem; }
+    </style>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "FraudLens",
+      "alternateName": "FraudLens Intelligence Platform",
+      "description": "Enterprise-grade autonomous fraud detection and financial risk intelligence platform combining real-time anomaly screening, machine learning inference, dynamic graph neural network investigation, and temporal concept drift supervision.",
+      "url": "https://fraudlens.io/",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "All modern web browsers",
+      "sameAs": [
+        "https://github.com/bilalhaider-ux/fraudlens"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "FraudLens Defense Systems",
+        "url": "https://fraudlens.io/",
+        "sameAs": "https://github.com/bilalhaider-ux/fraudlens"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "FraudLens Defense Systems",
+        "url": "https://fraudlens.io/"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/OnlineOnly"
+      },
+      "featureList": [
+        "Autonomous Situation Room & Executive Telemetry",
+        "EvolveGCN Graph Neural Network Investigation",
+        "Temporal Concept Drift Supervision across timesteps 35-49",
+        "Explainable AI (SHAP) Fraud Alert Queues & Dossiers",
+        "Sub-Millisecond Hybrid Scoring Pipeline",
+        "Dynamic Policy & Heuristic Rule Studio"
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>FraudLens — Real-Time ML Fraud Intelligence &amp; Defense Platform</h1>
+        <p>
+          FraudLens is an enterprise-grade autonomous fraud detection and financial risk intelligence platform. Designed for high-throughput cryptocurrency transaction networks, banking rails, and payment processors, FraudLens executes real-time anomaly screening, supervised machine learning inference, temporal drift supervision, and deterministic policy rule enforcement across high-velocity transaction streams.
+        </p>
+      </header>
+
+      <section>
+        <h2>Core Autonomous Defense Capabilities</h2>
+
+        <article>
+          <h3>1. Situation Room &amp; Executive Telemetry</h3>
+          <p>
+            The Situation Room provides centralized situational awareness over the Elliptic cryptocurrency transaction graph, actively monitoring 203,769 entities and supervising transactions across timesteps 35 through 49. Risk operations teams track macro perimeter states, risk class distributions, prevented financial losses, and anomalous velocity spikes with sub-millisecond telemetry feeds.
+          </p>
+        </article>
+
+        <article>
+          <h3>2. Graph Neural Network Investigation</h3>
+          <p>
+            Leveraging EvolveGCN dynamic graph architectures, FraudLens inspects high-risk clusters, laundering topologies, and multi-hop fund routing. Entity embeddings reveal complex structural associations between synthetic identities, mixer smart contracts, and sanctioned counterparties before malicious transfers can settle.
+          </p>
+        </article>
+
+        <article>
+          <h3>3. Temporal Concept Drift Supervision</h3>
+          <p>
+            Adversarial attack strategies evolve over time, causing stationary machine learning models to decay. FraudLens continuously tracks F1-score stability, Precision-Recall AUC trajectories, and Kolmogorov-Smirnov feature distribution shifts across sliding temporal windows to ensure consistent model efficacy.
+          </p>
+        </article>
+
+        <article>
+          <h3>4. Explainable AI Alerts Queue &amp; Incident Workbench</h3>
+          <p>
+            High-priority alerts are augmented with transparent SHAP feature attributions, anomaly factor decompositions, and policy violation logs. Analysts can execute single-click decisions to approve transactions, freeze suspicious accounts, or escalate complex syndicates to anti-money laundering review.
+          </p>
+        </article>
+      </section>
+
+      <section>
+        <h2>Operational Architecture &amp; Performance</h2>
+
+        <article>
+          <h3>Sub-Millisecond Inference Pipeline</h3>
+          <p>
+            Combining gradient-boosted decision trees, graph neural network embeddings, statistical anomaly estimators, and deterministic heuristic matrices, FraudLens screens incoming transaction requests in under 0.95 milliseconds while sustaining a 96.8% precision rate in high-volume production environments.
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>"""
+
+@app.get("/")
+def get_homepage(request: Request):
+    """
+    Serves homepage content negotiated by Accept header:
+    - Returns text/markdown when client specifies Accept: text/markdown
+    - Returns text/html for browsers and default requests
+    Always includes 'Vary: Accept, Accept-Encoding' so CDNs cache both variants independently.
+    """
+    accept = request.headers.get("accept", "").lower()
+    headers = {"Vary": "Accept, Accept-Encoding"}
+
+    if "text/markdown" in accept or "text/x-markdown" in accept:
+        return Response(
+            content=MARKDOWN_HOMEPAGE,
+            status_code=200,
+            media_type="text/markdown; charset=utf-8",
+            headers=headers
+        )
+
+    return Response(
+        content=HTML_HOMEPAGE,
+        status_code=200,
+        media_type="text/html; charset=utf-8",
+        headers=headers
+    )
+
+LLMS_TXT_CONTENT = """# FraudLens Intelligence API
+
+> Real-Time Machine Learning Fraud Detection, Anomaly Screening, and Graph Defense Platform.
+
+## Overview
+FraudLens provides real-time ML-powered fraud risk scoring, EvolveGCN dynamic graph investigation, temporal concept drift monitoring, and high-priority alert queues for cryptocurrency transaction networks and high-throughput payment processors.
+
+## When to Use FraudLens (Best-Fit Use Cases)
+Agents should reach for FraudLens when an automated risk decision, transaction verification, or security triage workflow involves:
+
+1. **Pre-Authorization Real-Time Transaction Screening**
+   - **Job**: Evaluate incoming card, wire, or cryptocurrency transactions under strict sub-millisecond latency budgets (< 1ms).
+   - **Trigger**: When handling payment authorization webhooks, checkout flows, or non-custodial crypto deposit events.
+   - **Output**: Composite risk score (0-100), risk tier (`LOW`, `MEDIUM`, `HIGH`, `CRITICAL`), recommended action (`APPROVED`, `UNDER_REVIEW`, `DECLINED`), and Explainable AI (SHAP) reason codes.
+
+2. **Adversarial Attack Surge & Botnet Mitigation**
+   - **Job**: Detect automated card-testing waves, distributed proxy sweeps, and rapid velocity spikes across botnets.
+   - **Trigger**: When an agent detects abnormal transaction surges, high decline rates, or synchronized requests sharing device fingerprints.
+   - **Output**: Immediate cluster identification and deterministic rule enforcement (`RULE_001` through `RULE_007`).
+
+3. **Multi-Hop Cryptocurrency Graph Investigation**
+   - **Job**: Unpack complex transaction topologies, peel chains, mixer smart contracts, and illicit entity clusters (e.g., Elliptic cluster #174515).
+   - **Trigger**: When investigating suspect wallet addresses, AML compliance alerts, or ransomware tracing cases.
+   - **Output**: Subgraph topology, node classifications (`illicit`, `licit`, `unlabeled`), and temporal flow histories.
+
+4. **Temporal Concept Drift & Model Decay Supervision**
+   - **Job**: Audit model health across continuous time windows (timesteps 35–49) to detect adversarial evasion and distributional shifts.
+   - **Trigger**: When monitoring model telemetry or deciding whether to initiate model retraining pipelines.
+   - **Output**: F1 stability indices, PR-AUC trajectories, and Kolmogorov-Smirnov drift metrics.
+
+5. **Automated Incident Triage & Programmatic Adjudication**
+   - **Job**: Fetch pending alerts, triage priority cases, and execute programmatic actions (approve, block card, freeze account, AML escalation).
+   - **Trigger**: During automated security operations center (SOC) triage or compliance audit runs.
+
+### When NOT to Use FraudLens
+- Do not use for batch payroll or internal ledger accounting.
+- Do not use as a primary relational transaction database.
+- Do not use for offline identity document OCR verification (FraudLens analyzes transactional, behavioral, and graph signals).
+
+## How an Agent Should Call FraudLens
+
+### 1. Screen a Live Transaction
+```http
+POST /api/evaluate
+Content-Type: application/json
+
+{
+  "amount": 4250.00,
+  "currency": "USD",
+  "user_id": "usr_94812",
+  "merchant_id": "merch_crypto_vault",
+  "mcc": "6051",
+  "card_bin": "411111",
+  "card_last4": "8841",
+  "ip_address": "185.220.101.5",
+  "device_fingerprint": "fp_bot_9182a",
+  "billing_country": "US",
+  "shipping_country": "RU"
+}
+```
+**Agent Decision Logic on Response**:
+- If `status == "APPROVED"` (risk_score < 40): Proceed with transaction authorization.
+- If `status == "UNDER_REVIEW"` (risk_score 40-75): Route to secondary review or trigger step-up multi-factor authentication (MFA).
+- If `status == "DECLINED"` (risk_score > 75): Reject transaction immediately; inspect `reason_codes` and `triggered_rules` for audit logs.
+
+### 2. Triage High-Priority Alerts
+```http
+GET /api/ml/alerts
+```
+Returns unhandled suspicious cases sorted by risk priority, complete with entity identifiers, timestamps, and SHAP feature attribution weights.
+
+### 3. Programmatically Adjudicate an Alert
+```http
+POST /api/transactions/{id}/action
+Content-Type: application/json
+
+{
+  "action": "DECLINE_BLOCK",
+  "notes": "Agent automated triage: IP verified as known TOR exit node with rapid card velocity."
+}
+```
+Available actions: `APPROVE`, `DECLINE_BLOCK`, `ESCALATE_AML`.
+
+### 4. Query Graph Cluster Topology
+```http
+GET /api/ml/graph
+```
+Returns nodes, directed edges, risk classifications, and connected illicit entities in the EvolveGCN graph.
+
+### 5. Stream Ingestion (WebSocket)
+Connect to: `ws://<host>/ws/transactions`
+Listen for `NEW_TRANSACTION` JSON frames for continuous streaming telemetry.
+
+## Machine-Readable Resources
+- OpenAPI Documentation: `/docs`
+- XML Sitemap: `/sitemap.xml`
+- Robots Policy: `/robots.txt`
+- AI Agent Instructions: `/agent-instructions.md`
+"""
+
+@app.get("/llms.txt", response_class=PlainTextResponse)
+def get_llms_txt():
+    """Provides structured text summary for LLM web agents."""
+    return Response(
+        content=LLMS_TXT_CONTENT,
+        status_code=200,
+        media_type="text/plain; charset=utf-8",
+        headers={"Vary": "Accept, Accept-Encoding"}
+    )
+
+AGENT_INSTRUCTIONS_CONTENT = """# FraudLens Agent Integration & Operating Manual
+
+This document provides autonomous LLM agents with explicit instructions for evaluating transactions, triaging security incidents, investigating graph clusters, and monitoring model drift via the FraudLens API.
+
+## 1. When to Use FraudLens
+
+### Primary Fit
+- **Real-Time Pre-Auth Risk Screening**: Call `POST /api/evaluate` before settling payments or wallet transfers when sub-millisecond scoring (< 1ms) and explainable decision trees are required.
+- **Botnet & Attack Surge Defense**: Query `GET /api/transactions?risk_level=CRITICAL` or `GET /api/metrics` to identify coordinated velocity surges, ATO attempts, or proxy exit nodes.
+- **Crypto AML & Graph Laundering Tracing**: Query `GET /api/ml/graph` to traverse directed transaction links, inspect mixer entities, and assess cluster #174515 risk.
+- **Fintech Model Drift Audit**: Call `GET /api/ml/drift` to inspect F1 and PR-AUC degradation across timesteps 35–49 and trigger retraining workflows.
+
+### Anti-Patterns (When NOT to Call FraudLens)
+- Do not call FraudLens for static batch payroll computation.
+- Do not call FraudLens for optical character recognition (OCR) of passport/driver's license images.
+- Do not use as a persistent relational system of record for double-entry bookkeeping.
+
+## 2. API Contract & Schemas
+
+### Evaluating a Transaction
+**Endpoint**: `POST /api/evaluate`  
+**Payload**:
+```json
+{
+  "amount": 2500.0,
+  "currency": "USD",
+  "user_id": "usr_alpha_109",
+  "merchant_id": "merch_fintech_node",
+  "mcc": "6051",
+  "card_bin": "411111",
+  "card_last4": "1234",
+  "ip_address": "194.26.29.112",
+  "device_fingerprint": "fp_canvas_9921",
+  "billing_country": "US",
+  "shipping_country": "NG"
+}
+```
+
+### Agent Adjudication Workflow
+When automated triage determines an action:
+**Endpoint**: `POST /api/transactions/{id}/action`
+```json
+{
+  "action": "DECLINE_BLOCK",
+  "notes": "Automated security rule: Multi-hop proxy detected with severe geographic distance delta."
+}
+```
+Supported actions: `APPROVE`, `DECLINE_BLOCK`, `ESCALATE_AML`.
+"""
+
+@app.get("/agent-instructions.md", response_class=PlainTextResponse)
+def get_agent_instructions():
+    """Provides explicit integration guidance and operation manual for autonomous agents."""
+    return Response(
+        content=AGENT_INSTRUCTIONS_CONTENT,
+        status_code=200,
+        media_type="text/markdown; charset=utf-8",
+        headers={"Vary": "Accept, Accept-Encoding"}
+    )
+
+@app.get("/sitemap.xml", response_class=Response)
+def get_sitemap():
+    """XML sitemap for crawlers and search agents."""
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://fraudlens.io/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://fraudlens.io/docs</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://fraudlens.io/llms.txt</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>"""
+    return Response(content=content, media_type="application/xml")
+
+@app.get("/robots.txt", response_class=PlainTextResponse)
+def get_robots():
+    """Directives for web bots and crawlers."""
+    return """User-agent: *
+Allow: /
+
+Sitemap: https://fraudlens.io/sitemap.xml
+"""
 
 @app.get("/api/health")
 def health_check():
