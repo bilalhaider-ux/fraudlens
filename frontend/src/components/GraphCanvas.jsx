@@ -265,9 +265,9 @@ export default function GraphCanvas({
         <div className="flex items-center gap-3">
           <div>
             <h1 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">
-              Screen 2: EvolveGCN Subgraph Canvas
+              Screen 2: Subgraph Diffusion Canvas
               <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">
-                Timestep 43 Topology
+                PPR Syndicate Recovery
               </span>
             </h1>
             <p className="text-xs text-slate-400">
