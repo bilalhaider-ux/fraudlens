@@ -1,0 +1,482 @@
+{
+  "166967": {
+    "node_id": 166967,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "167101": {
+    "node_id": 167101,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "167154": {
+    "node_id": 167154,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "167155": {
+    "node_id": 167155,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "167221": {
+    "node_id": 167221,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "174515": {
+    "node_id": 174515,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "174527": {
+    "node_id": 174527,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "175012": {
+    "node_id": 175012,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "175287": {
+    "node_id": 175287,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "175330": {
+    "node_id": 175330,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "198383": {
+    "node_id": 198383,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "198392": {
+    "node_id": 198392,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "198419": {
+    "node_id": 198419,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "198616": {
+    "node_id": 198616,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
+  "198853": {
+    "node_id": 198853,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.342,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.281,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.195,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.142,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.082,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  }
+}

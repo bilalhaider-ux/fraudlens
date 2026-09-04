@@ -53,12 +53,26 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="/assets/index-BqTHbT97.js"></script>
+    <script type="module" crossorigin src="/assets/index-ByF32snd.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-C_wmMsKP.css">
   </head>
   <body class="min-h-screen w-full overflow-x-hidden bg-[#080B11] text-[#F8FAFC]">
-    <div id="root" class="min-h-screen w-full overflow-x-hidden flex flex-col">
-      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div id="root">
+      <!-- Minimalist Cyber Loading Shell (prevents jarring text flashes on reload) -->
+      <div style="min-height: 100vh; background-color: #080d1a; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; font-family: system-ui, sans-serif;">
+        <div style="width: 36px; height: 36px; border: 2px solid rgba(6, 182, 212, 0.2); border-top-color: #06b6d4; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+        <span style="color: #64748b; font-size: 11px; font-family: monospace; letter-spacing: 0.15em; text-transform: uppercase;">
+          INITIALIZING FRAUDLENS ML...
+        </span>
+      </div>
+      <style>
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+
+      <!-- Semantic Raw HTML Homepage Content for Search Engines & AI Crawlers (accessible, non-flashing) -->
+      <main class="sr-only" aria-hidden="true" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
         <header class="mb-8">
           <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
             FraudLens — Real-Time ML Fraud Intelligence &amp; Defense Platform

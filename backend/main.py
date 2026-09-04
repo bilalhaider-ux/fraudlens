@@ -338,7 +338,21 @@ HTML_HOMEPAGE = """<!doctype html>
     </script>
   </head>
   <body>
-    <main>
+    <div id="root">
+      <!-- Minimalist Cyber Loading Shell (prevents jarring text flashes on reload) -->
+      <div style="min-height: 100vh; background-color: #080d1a; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; font-family: system-ui, sans-serif;">
+        <div style="width: 36px; height: 36px; border: 2px solid rgba(6, 182, 212, 0.2); border-top-color: #06b6d4; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+        <span style="color: #64748b; font-size: 11px; font-family: monospace; letter-spacing: 0.15em; text-transform: uppercase;">
+          INITIALIZING FRAUDLENS ML...
+        </span>
+      </div>
+      <style>
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+
+      <main class="sr-only" aria-hidden="true" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;">
       <header>
         <h1>FraudLens — Real-Time ML Fraud Intelligence &amp; Defense Platform</h1>
         <p>
@@ -389,6 +403,7 @@ HTML_HOMEPAGE = """<!doctype html>
         </article>
       </section>
     </main>
+    </div>
   </body>
 </html>"""
 

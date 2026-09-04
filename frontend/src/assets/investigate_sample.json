@@ -1,483 +1,489 @@
 {
-  "seed_node": 174515,
+  "seed_node": 174085,
   "timestep": 43,
-  "elements": {
-    "nodes": [
-      {
-        "data": {
-          "id": "176898",
-          "is_seed": false,
-          "risk_score": 0.009,
-          "diffusion_score": 0.020285,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "174091",
-          "is_seed": false,
-          "risk_score": 0.6576,
-          "diffusion_score": 0.003987,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "174092",
-          "is_seed": false,
-          "risk_score": 0.8758,
-          "diffusion_score": 0.012212,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "174486",
-          "is_seed": false,
-          "risk_score": 0.0001,
-          "diffusion_score": 0.007027,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "177820",
-          "is_seed": false,
-          "risk_score": 0.2473,
-          "diffusion_score": 0.003298,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "174114",
-          "is_seed": false,
-          "risk_score": 0.0,
-          "diffusion_score": 0.014242,
-          "true_label": 0
-        }
-      },
-      {
-        "data": {
-          "id": "175012",
-          "is_seed": false,
-          "risk_score": 0.0009,
-          "diffusion_score": 0.032615,
-          "true_label": 1
-        }
-      },
-      {
-        "data": {
-          "id": "176813",
-          "is_seed": false,
-          "risk_score": 0.0177,
-          "diffusion_score": 0.002571,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "175408",
-          "is_seed": false,
-          "risk_score": 0.0218,
-          "diffusion_score": 0.00335,
-          "true_label": 0
-        }
-      },
-      {
-        "data": {
-          "id": "177842",
-          "is_seed": false,
-          "risk_score": 0.0,
-          "diffusion_score": 0.01153,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "174515",
-          "is_seed": true,
-          "risk_score": 0.0022,
-          "diffusion_score": 0.243823,
-          "true_label": 1
-        }
-      },
-      {
-        "data": {
-          "id": "174516",
-          "is_seed": false,
-          "risk_score": 0.1752,
-          "diffusion_score": 0.072097,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "174904",
-          "is_seed": false,
-          "risk_score": 0.1068,
-          "diffusion_score": 0.020681,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "174905",
-          "is_seed": false,
-          "risk_score": 0.0614,
-          "diffusion_score": 0.122127,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "179131",
-          "is_seed": false,
-          "risk_score": 0.1494,
-          "diffusion_score": 0.020681,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "177086",
-          "is_seed": false,
-          "risk_score": 0.0195,
-          "diffusion_score": 0.00422,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "176446",
-          "is_seed": false,
-          "risk_score": 0.005,
-          "diffusion_score": 0.009235,
-          "true_label": 1
-        }
-      },
-      {
-        "data": {
-          "id": "175558",
-          "is_seed": false,
-          "risk_score": 0.04,
-          "diffusion_score": 0.017654,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "175559",
-          "is_seed": false,
-          "risk_score": 0.4593,
-          "diffusion_score": 0.083263,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "176457",
-          "is_seed": false,
-          "risk_score": 0.7217,
-          "diffusion_score": 0.047729,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "176073",
-          "is_seed": false,
-          "risk_score": 0.0059,
-          "diffusion_score": 0.003914,
-          "true_label": 1
-        }
-      },
-      {
-        "data": {
-          "id": "175819",
-          "is_seed": false,
-          "risk_score": 0.4247,
-          "diffusion_score": 0.01504,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "176974",
-          "is_seed": false,
-          "risk_score": 0.0025,
-          "diffusion_score": 0.017796,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "177618",
-          "is_seed": false,
-          "risk_score": 0.0003,
-          "diffusion_score": 0.002528,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "176469",
-          "is_seed": false,
-          "risk_score": 0.1636,
-          "diffusion_score": 0.020681,
-          "true_label": 1
-        }
-      },
-      {
-        "data": {
-          "id": "174806",
-          "is_seed": false,
-          "risk_score": 0.0475,
-          "diffusion_score": 0.004144,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "176860",
-          "is_seed": false,
-          "risk_score": 0.8799,
-          "diffusion_score": 0.002528,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "178663",
-          "is_seed": false,
-          "risk_score": 0.7966,
-          "diffusion_score": 0.020681,
-          "true_label": 2
-        }
-      },
-      {
-        "data": {
-          "id": "178155",
-          "is_seed": false,
-          "risk_score": 0.001,
-          "diffusion_score": 0.058743,
-          "true_label": 1
-        }
-      },
-      {
-        "data": {
-          "id": "176893",
-          "is_seed": false,
-          "risk_score": 0.0003,
-          "diffusion_score": 0.020898,
-          "true_label": 1
-        }
-      }
-    ],
-    "edges": [
-      {
-        "data": {
-          "id": "176898_176457",
-          "source": "176898",
-          "target": "176457"
-        }
-      },
-      {
-        "data": {
-          "id": "174091_174092",
-          "source": "174091",
-          "target": "174092"
-        }
-      },
-      {
-        "data": {
-          "id": "174092_175012",
-          "source": "174092",
-          "target": "175012"
-        }
-      },
-      {
-        "data": {
-          "id": "177820_174092",
-          "source": "177820",
-          "target": "174092"
-        }
-      },
-      {
-        "data": {
-          "id": "175012_176446",
-          "source": "175012",
-          "target": "176446"
-        }
-      },
-      {
-        "data": {
-          "id": "176813_174092",
-          "source": "176813",
-          "target": "174092"
-        }
-      },
-      {
-        "data": {
-          "id": "175408_176446",
-          "source": "175408",
-          "target": "176446"
-        }
-      },
-      {
-        "data": {
-          "id": "177842_174486",
-          "source": "177842",
-          "target": "174486"
-        }
-      },
-      {
-        "data": {
-          "id": "174515_174516",
-          "source": "174515",
-          "target": "174516"
-        }
-      },
-      {
-        "data": {
-          "id": "174515_178155",
-          "source": "174515",
-          "target": "178155"
-        }
-      },
-      {
-        "data": {
-          "id": "174516_176457",
-          "source": "174516",
-          "target": "176457"
-        }
-      },
-      {
-        "data": {
-          "id": "174904_174905",
-          "source": "174904",
-          "target": "174905"
-        }
-      },
-      {
-        "data": {
-          "id": "174905_174515",
-          "source": "174905",
-          "target": "174515"
-        }
-      },
-      {
-        "data": {
-          "id": "179131_174905",
-          "source": "179131",
-          "target": "174905"
-        }
-      },
-      {
-        "data": {
-          "id": "177086_177842",
-          "source": "177086",
-          "target": "177842"
-        }
-      },
-      {
-        "data": {
-          "id": "175558_175559",
-          "source": "175558",
-          "target": "175559"
-        }
-      },
-      {
-        "data": {
-          "id": "175559_174515",
-          "source": "175559",
-          "target": "174515"
-        }
-      },
-      {
-        "data": {
-          "id": "176073_175819",
-          "source": "176073",
-          "target": "175819"
-        }
-      },
-      {
-        "data": {
-          "id": "175819_175012",
-          "source": "175819",
-          "target": "175012"
-        }
-      },
-      {
-        "data": {
-          "id": "176974_175559",
-          "source": "176974",
-          "target": "175559"
-        }
-      },
-      {
-        "data": {
-          "id": "176974_174114",
-          "source": "176974",
-          "target": "174114"
-        }
-      },
-      {
-        "data": {
-          "id": "177618_175819",
-          "source": "177618",
-          "target": "175819"
-        }
-      },
-      {
-        "data": {
-          "id": "176469_174905",
-          "source": "176469",
-          "target": "174905"
-        }
-      },
-      {
-        "data": {
-          "id": "174806_176446",
-          "source": "174806",
-          "target": "176446"
-        }
-      },
-      {
-        "data": {
-          "id": "176860_175819",
-          "source": "176860",
-          "target": "175819"
-        }
-      },
-      {
-        "data": {
-          "id": "178663_174905",
-          "source": "178663",
-          "target": "174905"
-        }
-      },
-      {
-        "data": {
-          "id": "178155_175012",
-          "source": "178155",
-          "target": "175012"
-        }
-      },
-      {
-        "data": {
-          "id": "176893_175559",
-          "source": "176893",
-          "target": "175559"
-        }
-      },
-      {
-        "data": {
-          "id": "176893_177842",
-          "source": "176893",
-          "target": "177842"
-        }
-      }
-    ]
-  }
+  "hit_at_50": 0.7645,
+  "nodes": [
+    {
+      "id": 174085,
+      "is_seed": true,
+      "ppr_score": 0.7107,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174086,
+      "is_seed": false,
+      "ppr_score": 0.7123,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174087,
+      "is_seed": false,
+      "ppr_score": 0.9124,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174088,
+      "is_seed": false,
+      "ppr_score": 0.6282,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174089,
+      "is_seed": false,
+      "ppr_score": 0.4589,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174090,
+      "is_seed": false,
+      "ppr_score": 0.7915,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174091,
+      "is_seed": false,
+      "ppr_score": 0.1673,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174092,
+      "is_seed": false,
+      "ppr_score": 0.3548,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174093,
+      "is_seed": false,
+      "ppr_score": 0.2456,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174094,
+      "is_seed": false,
+      "ppr_score": 0.2689,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174095,
+      "is_seed": false,
+      "ppr_score": 0.7393,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174096,
+      "is_seed": false,
+      "ppr_score": 0.8907,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174097,
+      "is_seed": false,
+      "ppr_score": 0.609,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174098,
+      "is_seed": false,
+      "ppr_score": 0.631,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174099,
+      "is_seed": false,
+      "ppr_score": 0.9433,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174100,
+      "is_seed": false,
+      "ppr_score": 0.1905,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174101,
+      "is_seed": false,
+      "ppr_score": 0.6573,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174102,
+      "is_seed": false,
+      "ppr_score": 0.5764,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174103,
+      "is_seed": false,
+      "ppr_score": 0.369,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174104,
+      "is_seed": false,
+      "ppr_score": 0.8372,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174105,
+      "is_seed": false,
+      "ppr_score": 0.1597,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174106,
+      "is_seed": false,
+      "ppr_score": 0.8436,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174107,
+      "is_seed": false,
+      "ppr_score": 0.6551,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174108,
+      "is_seed": false,
+      "ppr_score": 0.1978,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174109,
+      "is_seed": false,
+      "ppr_score": 0.7837,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174110,
+      "is_seed": false,
+      "ppr_score": 0.4855,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174111,
+      "is_seed": false,
+      "ppr_score": 0.749,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174112,
+      "is_seed": false,
+      "ppr_score": 0.9473,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174113,
+      "is_seed": false,
+      "ppr_score": 0.7155,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174114,
+      "is_seed": false,
+      "ppr_score": 0.6274,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174115,
+      "is_seed": false,
+      "ppr_score": 0.6724,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174116,
+      "is_seed": false,
+      "ppr_score": 0.1403,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174117,
+      "is_seed": false,
+      "ppr_score": 0.3596,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174118,
+      "is_seed": false,
+      "ppr_score": 0.1252,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174119,
+      "is_seed": false,
+      "ppr_score": 0.4842,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174120,
+      "is_seed": false,
+      "ppr_score": 0.2293,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174121,
+      "is_seed": false,
+      "ppr_score": 0.6732,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174122,
+      "is_seed": false,
+      "ppr_score": 0.3615,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174123,
+      "is_seed": false,
+      "ppr_score": 0.1822,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174124,
+      "is_seed": false,
+      "ppr_score": 0.2794,
+      "type": "Syndicate"
+    }
+  ],
+  "links": [
+    {
+      "source": 174085,
+      "target": 174086
+    },
+    {
+      "source": 174087,
+      "target": 174088
+    },
+    {
+      "source": 174089,
+      "target": 174090
+    },
+    {
+      "source": 174091,
+      "target": 174092
+    },
+    {
+      "source": 174093,
+      "target": 174094
+    },
+    {
+      "source": 174095,
+      "target": 174096
+    },
+    {
+      "source": 174097,
+      "target": 174098
+    },
+    {
+      "source": 174099,
+      "target": 174100
+    },
+    {
+      "source": 174101,
+      "target": 174102
+    },
+    {
+      "source": 174103,
+      "target": 174104
+    },
+    {
+      "source": 174105,
+      "target": 174106
+    },
+    {
+      "source": 174107,
+      "target": 174108
+    },
+    {
+      "source": 174109,
+      "target": 174110
+    },
+    {
+      "source": 174111,
+      "target": 174112
+    },
+    {
+      "source": 174113,
+      "target": 174114
+    },
+    {
+      "source": 174115,
+      "target": 174116
+    },
+    {
+      "source": 174117,
+      "target": 174118
+    },
+    {
+      "source": 174119,
+      "target": 174120
+    },
+    {
+      "source": 174121,
+      "target": 174122
+    },
+    {
+      "source": 174123,
+      "target": 174124
+    },
+    {
+      "source": 174125,
+      "target": 174126
+    },
+    {
+      "source": 174127,
+      "target": 174128
+    },
+    {
+      "source": 174129,
+      "target": 174130
+    },
+    {
+      "source": 174131,
+      "target": 174132
+    },
+    {
+      "source": 174133,
+      "target": 174134
+    },
+    {
+      "source": 174135,
+      "target": 174136
+    },
+    {
+      "source": 174137,
+      "target": 174138
+    },
+    {
+      "source": 174139,
+      "target": 174140
+    },
+    {
+      "source": 174141,
+      "target": 174142
+    },
+    {
+      "source": 174143,
+      "target": 174144
+    },
+    {
+      "source": 174145,
+      "target": 174146
+    },
+    {
+      "source": 174147,
+      "target": 174148
+    },
+    {
+      "source": 174149,
+      "target": 174150
+    },
+    {
+      "source": 174151,
+      "target": 174152
+    },
+    {
+      "source": 174153,
+      "target": 174154
+    },
+    {
+      "source": 174155,
+      "target": 174156
+    },
+    {
+      "source": 174157,
+      "target": 174158
+    },
+    {
+      "source": 174159,
+      "target": 174160
+    },
+    {
+      "source": 174161,
+      "target": 174162
+    },
+    {
+      "source": 174163,
+      "target": 174164
+    },
+    {
+      "source": 174165,
+      "target": 174166
+    },
+    {
+      "source": 174167,
+      "target": 174168
+    },
+    {
+      "source": 174169,
+      "target": 174170
+    },
+    {
+      "source": 174171,
+      "target": 174172
+    },
+    {
+      "source": 174167,
+      "target": 174173
+    },
+    {
+      "source": 174174,
+      "target": 174175
+    },
+    {
+      "source": 174176,
+      "target": 174177
+    },
+    {
+      "source": 174178,
+      "target": 174179
+    },
+    {
+      "source": 174180,
+      "target": 174181
+    },
+    {
+      "source": 174182,
+      "target": 174183
+    },
+    {
+      "source": 174184,
+      "target": 174185
+    },
+    {
+      "source": 174186,
+      "target": 174187
+    },
+    {
+      "source": 174188,
+      "target": 174189
+    },
+    {
+      "source": 174190,
+      "target": 174191
+    },
+    {
+      "source": 174192,
+      "target": 174193
+    },
+    {
+      "source": 174194,
+      "target": 174195
+    },
+    {
+      "source": 174196,
+      "target": 174197
+    },
+    {
+      "source": 174198,
+      "target": 174199
+    },
+    {
+      "source": 174200,
+      "target": 174201
+    },
+    {
+      "source": 174202,
+      "target": 174203
+    }
+  ]
 }
