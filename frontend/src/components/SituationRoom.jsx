@@ -54,20 +54,23 @@ export default function SituationRoom({ setActiveScreen, onNavigateToGraph, onNa
   return (
     <div className="w-full max-w-7xl mx-auto flex flex-col gap-5 py-4 px-3 sm:px-6">
       
-      {/* 1. Hero Executive Telemetry Banner */}
-      <div className="w-full p-4 sm:p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-5 bg-gradient-to-r from-[#0d1527] to-[#0a0f1d] border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.05)]">
-        <div className="flex items-start gap-3.5 sm:gap-4 max-w-2xl min-w-0">
-          <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shrink-0 mt-0.5">
-            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      {/* Screen 1 Hero Banner */}
+      <div className="w-full p-5 sm:p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-5 bg-gradient-to-r from-[#0d1527] to-[#0a0f1d] border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.05)]">
+        
+        {/* Left: Shield Emblem + Description */}
+        <div className="flex items-start gap-4 max-w-2xl min-w-0">
+          <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shrink-0 mt-0.5">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
+
           <div className="flex flex-col gap-1.5 min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <h1 className="text-base sm:text-xl md:text-2xl font-bold text-white tracking-tight">
-                1. Situation Room &amp; Executive Telemetry
+              <h1 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                1. Situation Room & Executive Telemetry
               </h1>
-              <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 whitespace-nowrap">
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 whitespace-nowrap">
                 Perimeter Active
               </span>
             </div>
@@ -77,13 +80,15 @@ export default function SituationRoom({ setActiveScreen, onNavigateToGraph, onNa
           </div>
         </div>
 
+        {/* Right: CTA Button */}
         <button 
           onClick={() => navigateToScreen2('174515')}
-          className="w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs sm:text-sm transition-all duration-150 shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 cursor-pointer"
+          className="w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs sm:text-sm transition-all duration-150 shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 cursor-pointer whitespace-nowrap"
         >
-          <span className="truncate">Launch Deep Investigation (Cluster #174515)</span>
+          <span>Launch Deep Investigation (Cluster #174515)</span>
           <span className="text-base font-bold">&rarr;</span>
         </button>
+
       </div>
 
       {/* 2. Core Operational Metrics Grid */}
