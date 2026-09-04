@@ -1,0 +1,137 @@
+[
+  {
+    "alert_id": "ALT-101",
+    "node_id": 166967,
+    "timestep": 42,
+    "risk_score": 0.9228,
+    "regime": "Nominal",
+    "status": "Under Review",
+    "recommended_action": "Standard SAR"
+  },
+  {
+    "alert_id": "ALT-102",
+    "node_id": 167101,
+    "timestep": 42,
+    "risk_score": 0.8328,
+    "regime": "Nominal",
+    "status": "Under Review",
+    "recommended_action": "Standard SAR"
+  },
+  {
+    "alert_id": "ALT-103",
+    "node_id": 167154,
+    "timestep": 42,
+    "risk_score": 0.8779,
+    "regime": "Nominal",
+    "status": "Under Review",
+    "recommended_action": "Standard SAR"
+  },
+  {
+    "alert_id": "ALT-104",
+    "node_id": 167155,
+    "timestep": 42,
+    "risk_score": 0.8981,
+    "regime": "Nominal",
+    "status": "Under Review",
+    "recommended_action": "Standard SAR"
+  },
+  {
+    "alert_id": "ALT-105",
+    "node_id": 167221,
+    "timestep": 42,
+    "risk_score": 0.8722,
+    "regime": "Nominal",
+    "status": "Under Review",
+    "recommended_action": "Standard SAR"
+  },
+  {
+    "alert_id": "ALT-106",
+    "node_id": 174515,
+    "timestep": 43,
+    "risk_score": 0.8814,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  },
+  {
+    "alert_id": "ALT-107",
+    "node_id": 174527,
+    "timestep": 43,
+    "risk_score": 0.8711,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  },
+  {
+    "alert_id": "ALT-108",
+    "node_id": 175012,
+    "timestep": 43,
+    "risk_score": 0.9066,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  },
+  {
+    "alert_id": "ALT-109",
+    "node_id": 175287,
+    "timestep": 43,
+    "risk_score": 0.8766,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  },
+  {
+    "alert_id": "ALT-110",
+    "node_id": 175330,
+    "timestep": 43,
+    "risk_score": 0.9596,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  },
+  {
+    "alert_id": "ALT-111",
+    "node_id": 198383,
+    "timestep": 48,
+    "risk_score": 0.8574,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  },
+  {
+    "alert_id": "ALT-112",
+    "node_id": 198392,
+    "timestep": 48,
+    "risk_score": 0.8728,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  },
+  {
+    "alert_id": "ALT-113",
+    "node_id": 198419,
+    "timestep": 48,
+    "risk_score": 0.9262,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  },
+  {
+    "alert_id": "ALT-114",
+    "node_id": 198616,
+    "timestep": 48,
+    "risk_score": 0.9635,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  },
+  {
+    "alert_id": "ALT-115",
+    "node_id": 198853,
+    "timestep": 48,
+    "risk_score": 0.9304,
+    "regime": "Drifted",
+    "status": "Under Review",
+    "recommended_action": "Freeze & Trace"
+  }
+]

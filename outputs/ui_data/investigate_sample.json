@@ -1,0 +1,489 @@
+{
+  "seed_node": 174085,
+  "timestep": 43,
+  "hit_at_50": 0.7645,
+  "nodes": [
+    {
+      "id": 174085,
+      "is_seed": true,
+      "ppr_score": 0.7107,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174086,
+      "is_seed": false,
+      "ppr_score": 0.7123,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174087,
+      "is_seed": false,
+      "ppr_score": 0.9124,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174088,
+      "is_seed": false,
+      "ppr_score": 0.6282,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174089,
+      "is_seed": false,
+      "ppr_score": 0.4589,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174090,
+      "is_seed": false,
+      "ppr_score": 0.7915,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174091,
+      "is_seed": false,
+      "ppr_score": 0.1673,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174092,
+      "is_seed": false,
+      "ppr_score": 0.3548,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174093,
+      "is_seed": false,
+      "ppr_score": 0.2456,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174094,
+      "is_seed": false,
+      "ppr_score": 0.2689,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174095,
+      "is_seed": false,
+      "ppr_score": 0.7393,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174096,
+      "is_seed": false,
+      "ppr_score": 0.8907,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174097,
+      "is_seed": false,
+      "ppr_score": 0.609,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174098,
+      "is_seed": false,
+      "ppr_score": 0.631,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174099,
+      "is_seed": false,
+      "ppr_score": 0.9433,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174100,
+      "is_seed": false,
+      "ppr_score": 0.1905,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174101,
+      "is_seed": false,
+      "ppr_score": 0.6573,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174102,
+      "is_seed": false,
+      "ppr_score": 0.5764,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174103,
+      "is_seed": false,
+      "ppr_score": 0.369,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174104,
+      "is_seed": false,
+      "ppr_score": 0.8372,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174105,
+      "is_seed": false,
+      "ppr_score": 0.1597,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174106,
+      "is_seed": false,
+      "ppr_score": 0.8436,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174107,
+      "is_seed": false,
+      "ppr_score": 0.6551,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174108,
+      "is_seed": false,
+      "ppr_score": 0.1978,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174109,
+      "is_seed": false,
+      "ppr_score": 0.7837,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174110,
+      "is_seed": false,
+      "ppr_score": 0.4855,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174111,
+      "is_seed": false,
+      "ppr_score": 0.749,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174112,
+      "is_seed": false,
+      "ppr_score": 0.9473,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174113,
+      "is_seed": false,
+      "ppr_score": 0.7155,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174114,
+      "is_seed": false,
+      "ppr_score": 0.6274,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174115,
+      "is_seed": false,
+      "ppr_score": 0.6724,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174116,
+      "is_seed": false,
+      "ppr_score": 0.1403,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174117,
+      "is_seed": false,
+      "ppr_score": 0.3596,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174118,
+      "is_seed": false,
+      "ppr_score": 0.1252,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174119,
+      "is_seed": false,
+      "ppr_score": 0.4842,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174120,
+      "is_seed": false,
+      "ppr_score": 0.2293,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174121,
+      "is_seed": false,
+      "ppr_score": 0.6732,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174122,
+      "is_seed": false,
+      "ppr_score": 0.3615,
+      "type": "Syndicate"
+    },
+    {
+      "id": 174123,
+      "is_seed": false,
+      "ppr_score": 0.1822,
+      "type": "Intermediary"
+    },
+    {
+      "id": 174124,
+      "is_seed": false,
+      "ppr_score": 0.2794,
+      "type": "Syndicate"
+    }
+  ],
+  "links": [
+    {
+      "source": 174085,
+      "target": 174086
+    },
+    {
+      "source": 174087,
+      "target": 174088
+    },
+    {
+      "source": 174089,
+      "target": 174090
+    },
+    {
+      "source": 174091,
+      "target": 174092
+    },
+    {
+      "source": 174093,
+      "target": 174094
+    },
+    {
+      "source": 174095,
+      "target": 174096
+    },
+    {
+      "source": 174097,
+      "target": 174098
+    },
+    {
+      "source": 174099,
+      "target": 174100
+    },
+    {
+      "source": 174101,
+      "target": 174102
+    },
+    {
+      "source": 174103,
+      "target": 174104
+    },
+    {
+      "source": 174105,
+      "target": 174106
+    },
+    {
+      "source": 174107,
+      "target": 174108
+    },
+    {
+      "source": 174109,
+      "target": 174110
+    },
+    {
+      "source": 174111,
+      "target": 174112
+    },
+    {
+      "source": 174113,
+      "target": 174114
+    },
+    {
+      "source": 174115,
+      "target": 174116
+    },
+    {
+      "source": 174117,
+      "target": 174118
+    },
+    {
+      "source": 174119,
+      "target": 174120
+    },
+    {
+      "source": 174121,
+      "target": 174122
+    },
+    {
+      "source": 174123,
+      "target": 174124
+    },
+    {
+      "source": 174125,
+      "target": 174126
+    },
+    {
+      "source": 174127,
+      "target": 174128
+    },
+    {
+      "source": 174129,
+      "target": 174130
+    },
+    {
+      "source": 174131,
+      "target": 174132
+    },
+    {
+      "source": 174133,
+      "target": 174134
+    },
+    {
+      "source": 174135,
+      "target": 174136
+    },
+    {
+      "source": 174137,
+      "target": 174138
+    },
+    {
+      "source": 174139,
+      "target": 174140
+    },
+    {
+      "source": 174141,
+      "target": 174142
+    },
+    {
+      "source": 174143,
+      "target": 174144
+    },
+    {
+      "source": 174145,
+      "target": 174146
+    },
+    {
+      "source": 174147,
+      "target": 174148
+    },
+    {
+      "source": 174149,
+      "target": 174150
+    },
+    {
+      "source": 174151,
+      "target": 174152
+    },
+    {
+      "source": 174153,
+      "target": 174154
+    },
+    {
+      "source": 174155,
+      "target": 174156
+    },
+    {
+      "source": 174157,
+      "target": 174158
+    },
+    {
+      "source": 174159,
+      "target": 174160
+    },
+    {
+      "source": 174161,
+      "target": 174162
+    },
+    {
+      "source": 174163,
+      "target": 174164
+    },
+    {
+      "source": 174165,
+      "target": 174166
+    },
+    {
+      "source": 174167,
+      "target": 174168
+    },
+    {
+      "source": 174169,
+      "target": 174170
+    },
+    {
+      "source": 174171,
+      "target": 174172
+    },
+    {
+      "source": 174167,
+      "target": 174173
+    },
+    {
+      "source": 174174,
+      "target": 174175
+    },
+    {
+      "source": 174176,
+      "target": 174177
+    },
+    {
+      "source": 174178,
+      "target": 174179
+    },
+    {
+      "source": 174180,
+      "target": 174181
+    },
+    {
+      "source": 174182,
+      "target": 174183
+    },
+    {
+      "source": 174184,
+      "target": 174185
+    },
+    {
+      "source": 174186,
+      "target": 174187
+    },
+    {
+      "source": 174188,
+      "target": 174189
+    },
+    {
+      "source": 174190,
+      "target": 174191
+    },
+    {
+      "source": 174192,
+      "target": 174193
+    },
+    {
+      "source": 174194,
+      "target": 174195
+    },
+    {
+      "source": 174196,
+      "target": 174197
+    },
+    {
+      "source": 174198,
+      "target": 174199
+    },
+    {
+      "source": 174200,
+      "target": 174201
+    },
+    {
+      "source": 174202,
+      "target": 174203
+    }
+  ]
+}
