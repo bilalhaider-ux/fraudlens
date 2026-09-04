@@ -108,7 +108,7 @@ export default function Navbar({
         </div>
 
         {/* Navigation Tabs */}
-        <nav className="flex overflow-x-auto no-scrollbar whitespace-nowrap gap-2 pb-1">
+        <nav className="flex overflow-x-auto flex-nowrap shrink-0 no-scrollbar whitespace-nowrap gap-2 pb-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;

@@ -173,8 +173,8 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
       </div>
 
       {/* Alerts Table */}
-      <div className="w-full overflow-x-auto border border-white/10 rounded-xl glass-panel" style={{ padding: 0 }}>
-        <table className="min-w-[650px]" style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
+      <div className="w-full overflow-x-auto rounded-xl border border-white/10">
+        <table className="w-full min-w-[650px] text-left text-sm" style={{ borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{
               background: 'rgba(255, 255, 255, 0.02)',
@@ -184,12 +184,12 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
               textTransform: 'uppercase',
               letterSpacing: '0.05em'
             }}>
-              <th style={{ padding: '0.9rem 1.25rem' }}>Node ID</th>
-              <th style={{ padding: '0.9rem 1.25rem' }}>Timestep</th>
-              <th style={{ padding: '0.9rem 1.25rem' }}>Risk Score</th>
-              <th style={{ padding: '0.9rem 1.25rem' }}>Classification</th>
-              <th style={{ padding: '0.9rem 1.25rem' }}>Forensic Priority</th>
-              <th style={{ padding: '0.9rem 1.25rem', textAlign: 'right' }}>Action</th>
+              <th className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>Node ID</th>
+              <th className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>Timestep</th>
+              <th className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>Risk Score</th>
+              <th className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>Classification</th>
+              <th className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>Forensic Priority</th>
+              <th className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem', textAlign: 'right' }}>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -217,7 +217,7 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
                   }}
                 >
                   {/* Node ID */}
-                  <td style={{ padding: '0.9rem 1.25rem' }}>
+                  <td className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                       <span 
                         className="max-w-[120px] truncate"
@@ -232,109 +232,109 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
                       >
                         #{alert.node_id}
                       </span>
-                        {isSelected && (
-                          <span style={{
-                            fontSize: '0.65rem',
-                            padding: '1px 6px',
-                            borderRadius: '4px',
-                            background: '#06B6D4',
-                            color: '#000',
-                            fontWeight: 800
-                          }}>
-                            ACTIVE
-                          </span>
-                        )}
-                      </div>
-                    </td>
-
-                    {/* Timestep */}
-                    <td style={{ padding: '0.9rem 1.25rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)' }}>
-                        <Clock size={14} color="#94A3B8" />
-                        <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600 }}>T-{alert.timestep}</span>
-                      </div>
-                    </td>
-
-                    {/* Risk Score */}
-                    <td style={{ padding: '0.9rem 1.25rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <div style={{
-                          width: '45px',
-                          height: '5px',
-                          background: 'rgba(255, 255, 255, 0.1)',
-                          borderRadius: '3px',
-                          overflow: 'hidden'
-                        }}>
-                          <div style={{
-                            width: `${Math.round(alert.risk_score * 100)}%`,
-                            height: '100%',
-                            background: '#EF4444'
-                          }} />
-                        </div>
+                      {isSelected && (
                         <span style={{
-                          fontFamily: 'var(--font-mono)',
-                          fontWeight: 800,
-                          color: '#F87171'
+                          fontSize: '0.65rem',
+                          padding: '1px 6px',
+                          borderRadius: '4px',
+                          background: '#06B6D4',
+                          color: '#000',
+                          fontWeight: 800
                         }}>
-                          {(alert.risk_score * 100).toFixed(0)}%
+                          ACTIVE
                         </span>
-                      </div>
-                    </td>
+                      )}
+                    </div>
+                  </td>
 
-                    {/* Classification */}
-                    <td style={{ padding: '0.9rem 1.25rem' }}>
-                      <span style={{
-                        padding: '3px 8px',
-                        borderRadius: '4px',
-                        fontSize: '0.7rem',
-                        fontWeight: 700,
-                        background: badge.bg,
-                        color: badge.color,
-                        border: `1px solid ${badge.border}`
+                  {/* Timestep */}
+                  <td className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-secondary)' }}>
+                      <Clock size={14} color="#94A3B8" />
+                      <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 600 }}>T-{alert.timestep}</span>
+                    </div>
+                  </td>
+
+                  {/* Risk Score */}
+                  <td className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <div style={{
+                        width: '45px',
+                        height: '5px',
+                        background: 'rgba(255, 255, 255, 0.1)',
+                        borderRadius: '3px',
+                        overflow: 'hidden'
                       }}>
-                        {badge.text}
-                      </span>
-                    </td>
-
-                    {/* Priority */}
-                    <td style={{ padding: '0.9rem 1.25rem' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#FBBF24', fontSize: '0.75rem', fontWeight: 600 }}>
-                        <AlertTriangle size={14} />
-                        <span>High Priority Intercept</span>
+                        <div style={{
+                          width: `${Math.round(alert.risk_score * 100)}%`,
+                          height: '100%',
+                          background: '#EF4444'
+                        }} />
                       </div>
-                    </td>
+                      <span style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontWeight: 800,
+                        color: '#F87171'
+                      }}>
+                        {(alert.risk_score * 100).toFixed(0)}%
+                      </span>
+                    </div>
+                  </td>
 
-                    {/* Action Button */}
-                    <td style={{ padding: '0.9rem 1.25rem', textAlign: 'right' }}>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRowClick(alert.node_id);
-                        }}
-                        style={{
-                          background: 'rgba(6, 182, 212, 0.15)',
-                          border: '1px solid rgba(6, 182, 212, 0.4)',
-                          color: '#38BDF8',
-                          padding: '0.35rem 0.75rem',
-                          borderRadius: '6px',
-                          fontSize: '0.75rem',
-                          fontWeight: 700,
-                          cursor: 'pointer',
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '0.4rem'
-                        }}
-                      >
-                        <span>Target in Graph</span>
-                        <ArrowRight size={13} />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                  {/* Classification */}
+                  <td className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>
+                    <span style={{
+                      padding: '3px 8px',
+                      borderRadius: '4px',
+                      fontSize: '0.7rem',
+                      fontWeight: 700,
+                      background: badge.bg,
+                      color: badge.color,
+                      border: `1px solid ${badge.border}`
+                    }}>
+                      {badge.text}
+                    </span>
+                  </td>
+
+                  {/* Priority */}
+                  <td className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#FBBF24', fontSize: '0.75rem', fontWeight: 600 }}>
+                      <AlertTriangle size={14} />
+                      <span>High Priority Intercept</span>
+                    </div>
+                  </td>
+
+                  {/* Action Button */}
+                  <td className="whitespace-nowrap" style={{ padding: '0.9rem 1.25rem', textAlign: 'right' }}>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleRowClick(alert.node_id);
+                      }}
+                      style={{
+                        background: 'rgba(6, 182, 212, 0.15)',
+                        border: '1px solid rgba(6, 182, 212, 0.4)',
+                        color: '#38BDF8',
+                        padding: '0.35rem 0.75rem',
+                        borderRadius: '6px',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.4rem'
+                      }}
+                    >
+                      <span>Target in Graph</span>
+                      <ArrowRight size={13} />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
 
     </div>
   );

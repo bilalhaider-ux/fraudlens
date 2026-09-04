@@ -409,10 +409,11 @@ body {
 }
 
 /* Zero-Layout-Shift Strict Responsive Utilities */
-.h-\[320px\] { height: 320px; }
+.h-\[360px\] { height: 360px; }
 .h-\[240px\] { height: 240px; }
 .min-w-\[650px\] { min-width: 650px; }
 .max-w-\[120px\] { max-width: 120px; }
+.bg-\[\#0c121e\] { background-color: #0c121e; }
 
 @media (min-width: 640px) {
   .sm\:h-\[450px\] { height: 450px; }
@@ -420,6 +421,6 @@ body {
 }
 
 @media (min-width: 1024px) {
-  .lg\:h-\[calc\(100vh-180px\)\] { height: calc(100vh - 180px); }
+  .lg\:h-\[650px\] { height: 650px; }
   .lg\:w-96 { width: 24rem; }
 }

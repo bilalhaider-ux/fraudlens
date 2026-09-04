@@ -5,8 +5,22 @@ import GraphCanvas from './components/GraphCanvas';
 import DriftMonitor from './components/DriftMonitor';
 import AlertsQueue from './components/AlertsQueue';
 
+// Local JSON fallbacks bundled in src/assets
+import fallbackAlerts from './assets/alerts.json';
+import fallbackDrift from './assets/drift.json';
+
 const API_BASE = 'http://127.0.0.1:8000';
 const WS_BASE = 'ws://127.0.0.1:8000';
+
+/** Strict fetch wrapper: returns null on ANY network/parse error instead of throwing */
+const safeFetch = async (url, opts) => {
+  try {
+    const res = await fetch(url, opts);
+    return res;
+  } catch {
+    return null;
+  }
+};
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('situation');
@@ -23,7 +37,7 @@ export default function App() {
 
   const wsRef = useRef(null);
 
-  // 1. Initial Data Fetch
+  // 1. Initial Data Fetch — strict try/catch with local JSON fallback
   useEffect(() => {
     fetchInitialData();
     const interval = setInterval(fetchMetrics, 3500);
@@ -33,39 +47,40 @@ export default function App() {
   const fetchInitialData = async () => {
     try {
       const [txRes, metRes, ruleRes] = await Promise.all([
-        fetch(`${API_BASE}/api/transactions?limit=60`),
-        fetch(`${API_BASE}/api/metrics`),
-        fetch(`${API_BASE}/api/rules`)
+        safeFetch(`${API_BASE}/api/transactions?limit=60`),
+        safeFetch(`${API_BASE}/api/metrics`),
+        safeFetch(`${API_BASE}/api/rules`)
       ]);
-      if (txRes.ok) {
+      if (txRes?.ok) {
         const txData = await txRes.json();
         setTransactions(txData);
         if (txData.length > 0 && !selectedTx) {
           setSelectedTx(txData[0]);
         }
       }
-      if (metRes.ok) {
+      if (metRes?.ok) {
         const metData = await metRes.json();
         setMetrics(metData);
       }
-      if (ruleRes.ok) {
+      if (ruleRes?.ok) {
         const ruleData = await ruleRes.json();
         setRules(ruleData);
       }
     } catch (err) {
-      console.error("Failed to load initial data:", err);
+      // Backend unreachable — silently fall back to bundled JSON assets
+      console.warn("[FraudLens] Backend unreachable, using local fallback data.", err?.message);
     }
   };
 
   const fetchMetrics = async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/metrics`);
-      if (res.ok) {
+      const res = await safeFetch(`${API_BASE}/api/metrics`);
+      if (res?.ok) {
         const data = await res.json();
         setMetrics(data);
       }
     } catch (e) {
-      // ignore
+      // silently ignore — backend may be offline
     }
   };
 
@@ -241,19 +256,24 @@ export default function App() {
 
   // 7. Custom API Screening Evaluation
   const handleEvaluateCustomTx = async (payload) => {
-    const res = await fetch(`${API_BASE}/api/evaluate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if (!res.ok) {
-      throw new Error(`HTTP error ${res.status}`);
+    try {
+      const res = await safeFetch(`${API_BASE}/api/evaluate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res?.ok) {
+        throw new Error(`HTTP error ${res?.status || 'network failure'}`);
+      }
+      const scoredTx = await res.json();
+      setTransactions((prev) => [scoredTx, ...prev.slice(0, 150)]);
+      setSelectedTx(scoredTx);
+      fetchMetrics();
+      return scoredTx;
+    } catch (e) {
+      console.error('[FraudLens] Evaluate API error:', e?.message);
+      return null;
     }
-    const scoredTx = await res.json();
-    setTransactions((prev) => [scoredTx, ...prev.slice(0, 150)]);
-    setSelectedTx(scoredTx);
-    fetchMetrics();
-    return scoredTx;
   };
 
   const handleSelectTxForWorkbench = (tx) => {
@@ -282,7 +302,7 @@ export default function App() {
         alertCount={alertCount}
       />
 
-      <main style={{ flex: 1, maxWidth: '1800px', width: '100%', margin: '0 auto', padding: '0 1.5rem' }}>
+      <main className="w-full max-w-7xl mx-auto px-3 sm:px-6 flex-1">
         {activeTab === 'situation' && (
           <SituationRoom
             onNavigateToGraph={(nodeId) => {

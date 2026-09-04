@@ -636,11 +636,8 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
           {/* Cytoscape Container DOM Element */}
           <div
             ref={containerRef}
-            className="h-[320px] sm:h-[450px] lg:h-[calc(100vh-180px)] w-full"
-            style={{
-              width: '100%',
-              cursor: 'grab'
-            }}
+            className="w-full h-[360px] sm:h-[450px] lg:h-[650px] bg-[#0c121e] rounded-xl relative overflow-hidden"
+            style={{ cursor: 'grab' }}
           />
 
           {/* Diffusion Score Color Legend Bar */}
