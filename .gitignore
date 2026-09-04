@@ -1,5 +1,26 @@
-node_modules
-frontend/node_modules
-dist
+# Dependencies & Build Outputs
 node_modules/
 dist/
+build/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+
+# Environment Variables & Secrets
+.env
+.env.local
+*.env
+
+# Operating System & IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
