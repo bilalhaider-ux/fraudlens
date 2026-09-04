@@ -20,7 +20,7 @@ import {
 import sampleGraphData from '../assets/investigate_sample.json';
 import NodeExplainabilityDrawer from './NodeExplainabilityDrawer';
 
-const SEED_NODE_ID = '174515';
+const SEED_NODE_ID = String(sampleGraphData?.seed_node || '174085');
 
 // Color interpolation for diffusion score
 function getDiffusionColors(score, minScore = 0.002, maxScore = 0.25) {
@@ -49,6 +49,7 @@ function getDiffusionColors(score, minScore = 0.002, maxScore = 0.25) {
 }
 
 export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
+  const graphData = sampleGraphData;
   const containerRef = useRef(null);
   const cyRef = useRef(null);
   const layoutRef = useRef(null);
@@ -60,21 +61,37 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
   const [filterMode, setFilterMode] = useState('ALL'); // ALL, ILLICIT, SEED
   const [stats, setStats] = useState({ nodeCount: 0, edgeCount: 0, seedNode: SEED_NODE_ID });
 
-  // Process raw elements from investigate_sample.json
+  // Defensive Graph Data Adapter: Prunes corrupt orphan links & normalizes keys
   const processedElements = useMemo(() => {
-    const rawNodes = sampleGraphData?.elements?.nodes || [];
-    const rawEdges = sampleGraphData?.elements?.edges || [];
+    const graphData = sampleGraphData;
+    const rawNodes = graphData?.nodes || graphData?.elements?.nodes || [];
+    const rawLinks = graphData?.links || graphData?.edges || graphData?.elements?.edges || [];
 
-    const scores = rawNodes.map(n => n.data.diffusion_score || 0);
+    // 1. Build valid node index to prevent Cytoscape fatal crash
+    const validNodeIds = new Set(rawNodes.map(n => String(n.id !== undefined ? n.id : n.data?.id)));
+
+    // 2. Filter out any edge whose source or target is missing in nodes array
+    const sanitizedEdges = rawLinks.filter(link => {
+      const src = String(link.source !== undefined ? link.source : link.data?.source);
+      const tgt = String(link.target !== undefined ? link.target : link.data?.target);
+      return validNodeIds.has(src) && validNodeIds.has(tgt);
+    });
+
+    const scores = rawNodes.map(n => {
+      const nodeData = n.data || n;
+      return nodeData.ppr_score !== undefined ? Number(nodeData.ppr_score) : Number(nodeData.diffusion_score || 0);
+    });
     const minScore = Math.min(...scores, 0.002);
     const maxScore = Math.max(...scores, 0.25);
 
-    const nodes = rawNodes.map((n) => {
-      const data = n.data;
+    // 3. Format Cytoscape elements safely
+    const nodes = rawNodes.map((node) => {
+      const data = node.data || node;
       const id = String(data.id);
       const isSeed = id === SEED_NODE_ID || Boolean(data.is_seed);
-      const diffScore = Number(data.diffusion_score || 0);
-      const { fill, border, borderWidth, size } = getDiffusionColors(diffScore, minScore, maxScore);
+      const score = data.ppr_score !== undefined ? Number(data.ppr_score) : Number(data.diffusion_score || 0);
+      const type = data.type || (isSeed ? 'Seed' : 'Intermediary');
+      const { fill, border, borderWidth, size } = getDiffusionColors(score, minScore, maxScore);
 
       return {
         group: 'nodes',
@@ -83,25 +100,33 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
           id: id,
           label: isSeed ? `${id} (SEED)` : id,
           is_seed: isSeed,
-          fillColor: isSeed ? '#F59E0B' : fill,
-          borderColor: isSeed ? '#FDE047' : border,
+          score: score,
+          ppr_score: score,
+          type: type,
+          fillColor: isSeed ? '#F59E0B' : (type === 'Syndicate' ? '#EF4444' : fill),
+          borderColor: isSeed ? '#FDE047' : (type === 'Syndicate' ? '#FCA5A5' : border),
           borderWidth: isSeed ? 6 : borderWidth,
           nodeSize: isSeed ? 54 : size,
-          riskScore: data.risk_score !== undefined ? Number(data.risk_score) : 0,
-          diffusionScore: diffScore,
-          trueLabel: data.true_label !== undefined ? data.true_label : 2
+          riskScore: data.risk_score !== undefined ? Number(data.risk_score) : (type === 'Syndicate' ? 0.94 : score),
+          diffusionScore: score,
+          trueLabel: type === 'Syndicate' ? 1 : (data.true_label !== undefined ? data.true_label : 2)
         }
       };
     });
 
-    const edges = rawEdges.map((e) => ({
-      group: 'edges',
-      data: {
-        id: String(e.data.id || `${e.data.source}_${e.data.target}`),
-        source: String(e.data.source),
-        target: String(e.data.target)
-      }
-    }));
+    const edges = sanitizedEdges.map((link, idx) => {
+      const linkData = link.data || link;
+      const src = String(linkData.source);
+      const tgt = String(linkData.target);
+      return {
+        group: 'edges',
+        data: {
+          id: `e-${idx}`,
+          source: src,
+          target: tgt
+        }
+      };
+    });
 
     return { nodes, edges };
   }, []);
@@ -413,8 +438,23 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
     }
   };
 
-  const getLabelBadge = (label) => {
-    switch (label) {
+  const getLabelBadge = (nodeOrLabel) => {
+    if (typeof nodeOrLabel === 'object' && nodeOrLabel !== null) {
+      if (nodeOrLabel.is_seed) {
+        return { text: 'SEED ENTITY', bg: 'rgba(245, 158, 11, 0.2)', color: '#FBBF24', border: '#F59E0B' };
+      }
+      if (nodeOrLabel.type === 'Syndicate' || nodeOrLabel.trueLabel === 1) {
+        return { text: 'SYNDICATE / ILLICIT', bg: 'rgba(239, 68, 68, 0.2)', color: '#F87171', border: '#EF4444' };
+      }
+      if (nodeOrLabel.type === 'Intermediary') {
+        return { text: 'INTERMEDIARY HOPS', bg: 'rgba(6, 182, 212, 0.2)', color: '#38BDF8', border: '#06B6D4' };
+      }
+      if (nodeOrLabel.trueLabel === 0) {
+        return { text: 'LICIT / SAFE', bg: 'rgba(16, 185, 129, 0.2)', color: '#34D399', border: '#10B981' };
+      }
+      return { text: 'UNKNOWN / UNLABELLED', bg: 'rgba(148, 163, 184, 0.15)', color: '#94A3B8', border: '#64748B' };
+    }
+    switch (nodeOrLabel) {
       case 1:
         return { text: 'ILLICIT / FRAUD', bg: 'rgba(239, 68, 68, 0.2)', color: '#F87171', border: '#EF4444' };
       case 0:
@@ -465,7 +505,7 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
               </span>
             </div>
             <p style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-              Interactive Cytoscape.js network showing diffusion scores scaled by border & fill. Seed node <strong style={{ color: '#FDE047' }}>174515</strong> active.
+              Interactive Cytoscape.js network showing diffusion scores scaled by border & fill. Seed node <strong style={{ color: '#FDE047' }}>{stats.seedNode}</strong> active.
             </p>
           </div>
         </div>
@@ -491,19 +531,9 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
             </span>
           </div>
 
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            padding: '0.45rem 0.85rem',
-            borderRadius: '8px',
-            background: 'rgba(245, 158, 11, 0.15)',
-            border: '1px solid rgba(245, 158, 11, 0.35)',
-            color: '#FBBF24'
-          }}>
-            <Sparkles size={15} />
-            <span style={{ fontSize: '0.75rem', fontWeight: 700 }}>Seed Node: {stats.seedNode}</span>
-          </div>
+          <span className="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 font-mono text-xs">
+            Seed Node: {graphData?.seed_node || '174085'}
+          </span>
         </div>
       </div>
 
@@ -542,7 +572,7 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
                 <Search size={14} color="#94A3B8" style={{ position: 'absolute', left: '10px' }} />
                 <input
                   type="text"
-                  placeholder="Find Node ID (e.g. 174515)..."
+                  placeholder={`Find Node ID (e.g. ${stats.seedNode})...`}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   style={{
@@ -751,9 +781,9 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
                   <div style={{ fontSize: '1.2rem', fontWeight: 900, fontFamily: 'var(--font-mono)', color: '#FFF', marginTop: '0.2rem' }}>
                     #{selectedNode.id}
                   </div>
-                  <div style={{ marginTop: '0.4rem' }}>
+                  <div style={{ marginTop: '0.4rem', display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
                     {(() => {
-                      const badge = getLabelBadge(selectedNode.trueLabel);
+                      const badge = getLabelBadge(selectedNode);
                       return (
                         <span style={{
                           padding: '2px 8px',
@@ -768,6 +798,19 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
                         </span>
                       );
                     })()}
+                    {selectedNode.type && (
+                      <span style={{
+                        padding: '2px 8px',
+                        borderRadius: '4px',
+                        fontSize: '0.7rem',
+                        fontWeight: 700,
+                        background: 'rgba(255, 255, 255, 0.06)',
+                        color: '#E2E8F0',
+                        border: '1px solid rgba(255, 255, 255, 0.12)'
+                      }}>
+                        {selectedNode.type}
+                      </span>
+                    )}
                   </div>
                 </div>
 

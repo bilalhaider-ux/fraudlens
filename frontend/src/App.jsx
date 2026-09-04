@@ -226,7 +226,7 @@ export default function App() {
         {(activeTab === 'situation' || activeTab === 1) && (
           <SituationRoom
             onNavigateToGraph={(nodeId) => {
-              setTargetGraphNodeId(nodeId || '174515');
+              setTargetGraphNodeId(nodeId || '174085');
               setActiveTab('graph');
             }}
             onNavigateToAlerts={() => {

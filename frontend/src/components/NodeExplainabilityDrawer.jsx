@@ -16,6 +16,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import nodeExplanations from '../assets/node_explanations.json';
 
 // Deterministically generate calibrated surrogate SHAP values for a node
 function getSurrogateAttributions(node) {
@@ -124,7 +125,29 @@ export default function NodeExplainabilityDrawer({ node, isOpen, onClose, onTria
 
   if (!isOpen || !node) return null;
 
-  const attributions = getSurrogateAttributions(node);
+  const customExplanation = node?.id ? nodeExplanations[String(node.id)] : null;
+
+  const attributions = customExplanation
+    ? [
+        ...(customExplanation.top_risk_drivers || []).map((d) => ({
+          feature: d.feature,
+          label: d.description,
+          value: d.shap_value,
+          direction: 'ILLICIT',
+          category: 'Risk Driver',
+          desc: d.description
+        })),
+        ...(customExplanation.top_mitigating_factors || []).map((d) => ({
+          feature: d.feature,
+          label: d.description,
+          value: d.shap_value,
+          direction: 'LICIT',
+          category: 'Mitigating Factor',
+          desc: d.description
+        }))
+      ]
+    : getSurrogateAttributions(node);
+
   const isHighRisk = (node.riskScore > 0.4) || (node.diffusionScore > 0.05) || (node.trueLabel === 1);
 
   const handleTriage = (disposition) => {
@@ -319,7 +342,7 @@ export default function NodeExplainabilityDrawer({ node, isOpen, onClose, onTria
               </h4>
             </div>
             <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-              Calibrated Heuristic XAI
+              {customExplanation ? 'SHAP Feature Drivers' : 'Calibrated Heuristic XAI'}
             </span>
           </div>
 

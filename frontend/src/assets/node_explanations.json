@@ -1,4 +1,36 @@
 {
+  "174085": {
+    "node_id": 174085,
+    "top_risk_drivers": [
+      {
+        "feature": "flow_energy_entropy",
+        "shap_value": 0.384,
+        "description": "High directional SVD dispersion"
+      },
+      {
+        "feature": "neigh_in_max_out_deg",
+        "shap_value": 0.312,
+        "description": "Funded directly by high fan-out hub"
+      },
+      {
+        "feature": "mahalanobis_svd",
+        "shap_value": 0.221,
+        "description": "Centroid distance outlier"
+      },
+      {
+        "feature": "kcore",
+        "shap_value": 0.165,
+        "description": "Deep k-core structural entanglement"
+      }
+    ],
+    "top_mitigating_factors": [
+      {
+        "feature": "raw_1",
+        "shap_value": -0.075,
+        "description": "Standard payment transaction volume"
+      }
+    ]
+  },
   "166967": {
     "node_id": 166967,
     "top_risk_drivers": [
