@@ -114,3 +114,12 @@ graph TD
 - **Every "too good" result in this project was treated as a bug report, not a win** — see the debunked GuiltyWalker row in the benchmark table above.
 - **The dual-regime adaptive threshold** used post-drift adapts to each time step's own unlabeled score distribution (no true labels touched) — a legitimate technique in the same family as label-free prior/quantification correction, disclosed here as an assumption-bearing choice, not an assumption-free one.
 - **Known limitation:** the adaptive threshold will still locate *a* split point even in a period with genuinely zero illicit activity, which could manufacture false positives. Not yet solved; noted honestly rather than hidden.
+
+## 🚀 Reproduction
+
+```bash
+# Ingest data, build 150-D invariant manifold, and run Champion evaluation
+python src/train_unified_champion.py
+
+# Export verified UI telemetry
+python src/export_ui_payloads.py
