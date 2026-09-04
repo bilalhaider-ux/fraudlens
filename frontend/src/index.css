@@ -419,6 +419,10 @@ body {
 .max-w-\[120px\] { max-width: 120px; }
 .bg-\[\#0c121e\] { background-color: #0c121e; }
 
+@media (min-width: 480px) {
+  .xs\:block { display: block !important; }
+}
+
 @media (min-width: 640px) {
   .sm\:h-\[450px\] { height: 450px; }
   .sm\:h-\[380px\] { height: 380px; }

@@ -46,32 +46,40 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
   return (
     <div className="w-full flex flex-col gap-6 pb-12">
       
-      {/* 1. Hero Header Banner with CTA */}
-      <div className="glass-panel w-full p-4 sm:p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-[#0d1527] to-[#0a0f1d] border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.05)]">
+      {/* Screen 1 Hero Banner */}
+      <div className="glass-panel w-full p-4 sm:p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-5 bg-gradient-to-r from-[#0d1527] to-[#0a0f1d] border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.05)]">
         
-        {/* Left: Text & Badges */}
-        <div className="flex flex-col gap-2 max-w-2xl min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-lg sm:text-2xl font-bold text-white tracking-tight">
-              1. Situation Room &amp; Executive Telemetry
-            </h1>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 whitespace-nowrap">
-              Perimeter Active
-            </span>
+        {/* Left: Emblem + Telemetry Description */}
+        <div className="flex items-start gap-3.5 sm:gap-4 max-w-2xl min-w-0">
+          {/* Restored Cyan Shield Emblem */}
+          <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shrink-0 mt-0.5">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
           </div>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-            Autonomous monitoring of Elliptic cryptocurrency transaction graph. Tracking 203,769 entities across timesteps 35–49 with temporal drift supervision.
-          </p>
+
+          <div className="flex flex-col gap-1.5 min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <h1 className="text-base sm:text-xl md:text-2xl font-bold text-white tracking-tight">
+                1. Situation Room &amp; Executive Telemetry
+              </h1>
+              <span className="px-2 py-0.5 rounded-full text-[9px] sm:text-[10px] font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 whitespace-nowrap">
+                Perimeter Active
+              </span>
+            </div>
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+              Autonomous monitoring of Elliptic cryptocurrency transaction graph. Tracking 203,769 entities across timesteps 35–49 with temporal drift supervision.
+            </p>
+          </div>
         </div>
 
-        {/* Right: CTA Action Button */}
+        {/* Right: CTA Action Button (Mobile: full width, Desktop: auto width right-aligned) */}
         <button 
-          onClick={() => onNavigateToGraph('174515')}
-          className="w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs sm:text-sm transition-all duration-150 shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 min-w-0"
+          onClick={() => (onNavigateToGraph ? onNavigateToGraph('174515') : (setActiveScreen && setActiveScreen(2)))}
+          className="w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs sm:text-sm transition-all duration-150 shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 cursor-pointer"
         >
-          <Sparkles size={18} className="shrink-0" />
           <span className="truncate">Launch Deep Investigation (Cluster #174515)</span>
-          <ArrowRight size={17} className="shrink-0" />
+          <span className="text-base font-bold">&rarr;</span>
         </button>
 
       </div>
