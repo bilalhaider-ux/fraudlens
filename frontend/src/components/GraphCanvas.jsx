@@ -48,7 +48,13 @@ function getDiffusionColors(score, minScore = 0.002, maxScore = 0.25) {
   return { fill, border, borderWidth, size, norm };
 }
 
-export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
+export default function GraphCanvas({ 
+  targetNodeId, 
+  selectedNodeId, 
+  onSelectNodeId, 
+  setSelectedNodeId, 
+  setActiveScreen 
+}) {
   const graphData = sampleGraphData;
   const containerRef = useRef(null);
   const cyRef = useRef(null);
@@ -297,6 +303,9 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
           if (onSelectNodeId) {
             onSelectNodeId(data.id);
           }
+          if (setSelectedNodeId) {
+            setSelectedNodeId(data.id);
+          }
         });
 
         // Background click handler to deselect
@@ -342,11 +351,13 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
   }, [processedElements, layoutName]);
 
 
-  // Handle targetNodeId prop changes (e.g. from Screen 5 Alerts Queue row clicks)
+  const effectiveTargetId = targetNodeId || selectedNodeId;
+
+  // Handle targetNodeId / selectedNodeId prop changes (e.g. from Screen 5 Alerts Queue row clicks)
   useEffect(() => {
-    if (!targetNodeId || !cyRef.current || cyRef.current.destroyed()) return;
+    if (!effectiveTargetId || !cyRef.current || cyRef.current.destroyed()) return;
     const cy = cyRef.current;
-    const targetStr = String(targetNodeId);
+    const targetStr = String(effectiveTargetId);
     let targetEle = cy.$(`#${targetStr}`);
 
     if (targetEle.length === 0) {
@@ -396,7 +407,7 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
       zoom: 1.5,
       duration: 600
     });
-  }, [targetNodeId]);
+  }, [effectiveTargetId]);
 
   // Search node filter
   const handleSearch = (e) => {

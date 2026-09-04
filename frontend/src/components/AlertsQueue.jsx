@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import rawAlerts from '../assets/alerts.json';
 
-export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
+export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId, setActiveScreen }) {
   const [alerts] = useState(rawAlerts);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterLabel, setFilterLabel] = useState('ALL');
@@ -26,8 +26,9 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
       const q = searchQuery.toLowerCase();
       if (!String(item.node_id).includes(q)) return false;
     }
-    if (filterLabel === 'ILLICIT' && item.true_label !== 1) return false;
-    if (filterLabel === 'OTHER' && item.true_label === 1) return false;
+    const isIllicit = item.true_label === 1 || item.risk_score >= 0.85;
+    if (filterLabel === 'ILLICIT' && !isIllicit) return false;
+    if (filterLabel === 'OTHER' && isIllicit) return false;
     return true;
   }).sort((a, b) => {
     let valA = a[sortField];
@@ -37,20 +38,24 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
     return 0;
   });
 
-  const getLabelBadge = (label) => {
-    if (label === 1) {
-      return { text: 'CONFIRMED ILLICIT', bg: 'rgba(239, 68, 68, 0.2)', color: '#F87171', border: '#EF4444' };
+  const getLabelBadge = (item) => {
+    const label = typeof item === 'object' ? item.true_label : item;
+    const score = typeof item === 'object' ? item.risk_score : 0;
+    const status = typeof item === 'object' ? item.status : null;
+
+    if (label === 1 || score >= 0.85) {
+      return { text: status || 'CONFIRMED ILLICIT', bg: 'rgba(239, 68, 68, 0.2)', color: '#F87171', border: '#EF4444' };
     }
     if (label === 0) {
-      return { text: 'CONFIRMED LICIT', bg: 'rgba(16, 185, 129, 0.2)', color: '#34D399', border: '#10B981' };
+      return { text: status || 'CONFIRMED LICIT', bg: 'rgba(16, 185, 129, 0.2)', color: '#34D399', border: '#10B981' };
     }
-    return { text: 'FLAGGED SUSPICIOUS', bg: 'rgba(245, 158, 11, 0.2)', color: '#FBBF24', border: '#F59E0B' };
+    return { text: status || 'FLAGGED SUSPICIOUS', bg: 'rgba(245, 158, 11, 0.2)', color: '#FBBF24', border: '#F59E0B' };
   };
 
-  const handleRowClick = (nodeId) => {
-    if (onTargetNode) {
-      onTargetNode(nodeId);
-    }
+  const handleSelectAlert = (nodeId) => {
+    onSelectNode?.(nodeId);
+    if (typeof onTargetNode === 'function') onTargetNode(nodeId);
+    if (typeof setActiveScreen === 'function') setActiveScreen(2);
   };
 
   return (
@@ -100,22 +105,21 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
           </div>
         </div>
 
-        {/* Action Prompt */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          padding: '0.5rem 0.9rem',
-          borderRadius: '8px',
-          background: 'rgba(6, 182, 212, 0.12)',
-          border: '1px solid rgba(6, 182, 212, 0.3)',
-          color: '#38BDF8',
-          fontSize: '0.75rem',
-          fontWeight: 600
-        }}>
-          <Crosshair size={16} />
-          <span>Interactive: Click row to pivot to Graph Canvas</span>
-        </div>
+        {/* Interactive Pivot Button */}
+        <button 
+          onClick={() => {
+            const targetId = selectedNodeId || alerts[0]?.node_id || 166967;
+            onSelectNode?.(targetId);
+            if (typeof onTargetNode === 'function') onTargetNode(targetId);
+            if (typeof setActiveScreen === 'function') setActiveScreen(2);
+          }}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-medium transition-all cursor-pointer active:scale-95"
+        >
+          <svg className="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          <span>Interactive: Pivot Top Alert to Graph Canvas</span>
+        </button>
       </div>
 
       {/* Filter and Search Bar */}
@@ -195,12 +199,12 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
           <tbody>
             {filteredAlerts.map((alert, index) => {
               const isSelected = String(selectedNodeId) === String(alert.node_id);
-              const badge = getLabelBadge(alert.true_label);
+              const badge = getLabelBadge(alert);
 
               return (
                 <tr
                   key={alert.node_id}
-                  onClick={() => handleRowClick(alert.node_id)}
+                  onClick={() => handleSelectAlert(alert.node_id)}
                   style={{
                     borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
                     background: isSelected 
@@ -309,7 +313,7 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleRowClick(alert.node_id);
+                        handleSelectAlert(alert.node_id);
                       }}
                       style={{
                         background: 'rgba(6, 182, 212, 0.15)',

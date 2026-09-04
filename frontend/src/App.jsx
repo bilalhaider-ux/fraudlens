@@ -239,18 +239,29 @@ export default function App() {
         {(activeTab === 'graph' || activeTab === 2) && (
           <GraphCanvas
             targetNodeId={targetGraphNodeId}
+            selectedNodeId={targetGraphNodeId}
             onSelectNodeId={(id) => setTargetGraphNodeId(id)}
+            setSelectedNodeId={setTargetGraphNodeId}
+            setActiveScreen={setActiveTab}
           />
         )}
 
         {(activeTab === 'drift' || activeTab === 3) && (
-          <DriftMonitor />
+          <DriftMonitor 
+            setActiveScreen={setActiveTab}
+          />
         )}
 
         {(activeTab === 'alerts' || activeTab === 4) && (
           <AlertsQueue
+            onSelectNode={(id) => {
+              setTargetGraphNodeId(id);
+              setActiveTab(2);
+            }}
             onTargetNode={handleTargetNodeInGraph}
             selectedNodeId={targetGraphNodeId}
+            setSelectedNodeId={setTargetGraphNodeId}
+            setActiveScreen={setActiveTab}
           />
         )}
       </main>
