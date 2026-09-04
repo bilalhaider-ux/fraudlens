@@ -215,19 +215,15 @@ export default function App() {
   return (
     <div className="min-h-screen w-full overflow-x-hidden flex flex-col bg-[#080B11] text-[#F8FAFC]">
       <Navbar
+        activeScreen={typeof activeTab === 'number' ? activeTab : (activeTab === 'situation' ? 1 : activeTab === 'graph' ? 2 : activeTab === 'drift' ? 3 : 4)}
+        setActiveScreen={setActiveTab}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        wsConnected={wsConnected}
-        isStreaming={isStreaming}
-        toggleStreaming={toggleStreaming}
-        streamSpeed={streamSpeed}
-        setStreamSpeed={handleSpeedChange}
-        threatLevel={metrics?.active_threat_level || 'ELEVATED'}
         alertCount={alertCount}
       />
 
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 py-4 sm:py-6">
-        {activeTab === 'situation' && (
+        {(activeTab === 'situation' || activeTab === 1) && (
           <SituationRoom
             onNavigateToGraph={(nodeId) => {
               setTargetGraphNodeId(nodeId || '174515');
@@ -236,21 +232,22 @@ export default function App() {
             onNavigateToAlerts={() => {
               setActiveTab('alerts');
             }}
+            setActiveScreen={setActiveTab}
           />
         )}
 
-        {activeTab === 'graph' && (
+        {(activeTab === 'graph' || activeTab === 2) && (
           <GraphCanvas
             targetNodeId={targetGraphNodeId}
             onSelectNodeId={(id) => setTargetGraphNodeId(id)}
           />
         )}
 
-        {activeTab === 'drift' && (
+        {(activeTab === 'drift' || activeTab === 3) && (
           <DriftMonitor />
         )}
 
-        {activeTab === 'alerts' && (
+        {(activeTab === 'alerts' || activeTab === 4) && (
           <AlertsQueue
             onTargetNode={handleTargetNodeInGraph}
             selectedNodeId={targetGraphNodeId}
