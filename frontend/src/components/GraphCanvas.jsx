@@ -53,6 +53,7 @@ export default function GraphCanvas({
   selectedNodeId, 
   onSelectNodeId, 
   setSelectedNodeId, 
+  activeScreen,
   setActiveScreen 
 }) {
   const graphData = sampleGraphData;
@@ -136,6 +137,9 @@ export default function GraphCanvas({
 
     return { nodes, edges };
   }, []);
+
+  const sanitizedNodes = processedElements.nodes;
+  const sanitizedEdges = processedElements.edges;
 
   // Initialize Cytoscape.js with strict mounting and dimension guards
   useEffect(() => {
@@ -350,6 +354,20 @@ export default function GraphCanvas({
     };
   }, [processedElements, layoutName]);
 
+  // Resilient delayed resize / fit on mount or tab switch
+  useEffect(() => {
+    if (!cyRef.current) return;
+    const timer = setTimeout(() => {
+      try {
+        if (!cyRef.current.destroyed()) {
+          cyRef.current.resize();
+          cyRef.current.fit(undefined, 30);
+        }
+      } catch (e) {}
+    }, 150);
+    return () => clearTimeout(timer);
+  }, [activeScreen, selectedNodeId]);
+
 
   const effectiveTargetId = targetNodeId || selectedNodeId;
 
@@ -534,11 +552,11 @@ export default function GraphCanvas({
           }}>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Nodes:</span>
             <span style={{ fontSize: '0.85rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#38BDF8' }}>
-              {stats.nodeCount}
+              {sanitizedNodes.length}
             </span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginLeft: '0.4rem' }}>Edges:</span>
             <span style={{ fontSize: '0.85rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#A78BFA' }}>
-              {stats.edgeCount}
+              {sanitizedEdges.length}
             </span>
           </div>
 
@@ -674,11 +692,11 @@ export default function GraphCanvas({
             </div>
           </div>
 
-          {/* Cytoscape Container DOM Element */}
+          {/* Cytoscape Container DOM Element with explicit height ladder */}
           <div
             ref={containerRef}
-            className="w-full h-[320px] sm:h-[450px] lg:h-[650px] min-h-[300px] bg-[#0c121e] rounded-xl relative overflow-hidden"
-            style={{ cursor: 'grab' }}
+            className="w-full h-[380px] sm:h-[450px] lg:h-[650px] min-h-[380px] bg-[#0c121e] rounded-xl relative overflow-hidden"
+            style={{ width: '100%', height: '380px', minHeight: '380px', cursor: 'grab' }}
           />
 
           {/* Diffusion Score Color Legend Bar */}

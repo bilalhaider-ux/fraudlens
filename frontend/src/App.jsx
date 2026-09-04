@@ -242,6 +242,7 @@ export default function App() {
             selectedNodeId={targetGraphNodeId}
             onSelectNodeId={(id) => setTargetGraphNodeId(id)}
             setSelectedNodeId={setTargetGraphNodeId}
+            activeScreen={typeof activeTab === 'number' ? activeTab : (activeTab === 'situation' ? 1 : activeTab === 'graph' ? 2 : activeTab === 'drift' ? 3 : 4)}
             setActiveScreen={setActiveTab}
           />
         )}

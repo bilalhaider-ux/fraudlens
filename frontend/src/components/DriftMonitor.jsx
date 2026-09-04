@@ -34,8 +34,9 @@ export default function DriftMonitor({ setActiveScreen }) {
   }, []);
 
   // Defensively extract timesteps and summary
-  const timesteps = Array.isArray(driftDataRaw) ? driftDataRaw : (driftDataRaw?.timesteps ?? []);
-  const summary = driftDataRaw?.summary ?? {};
+  const driftData = driftDataRaw;
+  const timesteps = Array.isArray(driftData) ? driftData : (driftData?.timesteps ?? []);
+  const summary = driftData?.summary ?? {};
 
   // Map Recharts data using the new keys: d.f1, d.recall, and d.psi
   const chartData = timesteps.map(d => ({
@@ -302,7 +303,7 @@ export default function DriftMonitor({ setActiveScreen }) {
         </div>
 
         {/* Recharts Container with explicit height */}
-        <div className="w-full h-[320px] sm:h-[420px] min-h-[300px] relative mt-2">
+        <div className="w-full h-[340px] sm:h-[450px] min-h-[320px] relative mt-2">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={chartData}

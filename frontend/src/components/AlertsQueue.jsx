@@ -26,10 +26,13 @@ export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId
       const q = searchQuery.toLowerCase();
       if (!String(item.node_id).includes(q)) return false;
     }
-    const isIllicit = item.true_label === 1 || item.risk_score >= 0.85;
-    if (filterLabel === 'ILLICIT' && !isIllicit) return false;
-    if (filterLabel === 'OTHER' && isIllicit) return false;
-    return true;
+    if (filterLabel === 'DRIFTED') {
+      return item.regime === 'Drifted' || item.timestep >= 43;
+    }
+    if (filterLabel === 'NOMINAL') {
+      return item.regime === 'Nominal' || item.timestep === 42;
+    }
+    return true; // "ALL" returns all 15 alerts without filtering to zero
   }).sort((a, b) => {
     let valA = a[sortField];
     let valB = b[sortField];
@@ -55,7 +58,7 @@ export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId
   const handleSelectAlert = (nodeId) => {
     onSelectNode?.(nodeId);
     if (typeof onTargetNode === 'function') onTargetNode(nodeId);
-    if (typeof setActiveScreen === 'function') setActiveScreen(2);
+    setActiveScreen?.(2);
   };
 
   return (
@@ -86,7 +89,7 @@ export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Screen 5: High-Priority Alerts Queue</h2>
+              <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Screen 4: High-Priority Alerts Queue</h2>
               <span style={{
                 padding: '3px 8px',
                 borderRadius: '6px',
@@ -108,16 +111,14 @@ export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId
         {/* Interactive Pivot Button */}
         <button 
           onClick={() => {
-            const targetId = selectedNodeId || alerts[0]?.node_id || 166967;
+            const targetId = alerts[0]?.node_id || 174085;
             onSelectNode?.(targetId);
             if (typeof onTargetNode === 'function') onTargetNode(targetId);
-            if (typeof setActiveScreen === 'function') setActiveScreen(2);
+            setActiveScreen?.(2);
           }}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-medium transition-all cursor-pointer active:scale-95"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 text-xs font-medium cursor-pointer active:scale-95"
         >
-          <svg className="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
           <span>Interactive: Pivot Top Alert to Graph Canvas</span>
         </button>
       </div>
@@ -166,8 +167,8 @@ export default function AlertsQueue({ onSelectNode, onTargetNode, selectedNodeId
             }}
           >
             <option value="ALL">All Categories ({alerts.length})</option>
-            <option value="ILLICIT">Confirmed Illicit Only</option>
-            <option value="OTHER">Other Flagged</option>
+            <option value="DRIFTED">Drifted Regime (t=43+)</option>
+            <option value="NOMINAL">Nominal Regime (t=42)</option>
           </select>
         </div>
 
