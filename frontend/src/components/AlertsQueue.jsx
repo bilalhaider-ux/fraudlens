@@ -173,7 +173,7 @@ export default function AlertsQueue({ onTargetNode, selectedNodeId }) {
       </div>
 
       {/* Alerts Table */}
-      <div className="w-full overflow-x-auto rounded-xl border border-white/10">
+      <div className="w-full overflow-x-auto border border-white/10 rounded-xl no-scrollbar">
         <table className="w-full min-w-[650px] text-left text-sm" style={{ borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{

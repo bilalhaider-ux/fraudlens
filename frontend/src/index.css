@@ -266,7 +266,8 @@ body {
   align-items: center;
   justify-content: space-between;
   min-height: 3.5rem;
-  max-width: 1800px;
+  width: 100%;
+  max-width: 80rem;
   margin: 0 auto;
 }
 
@@ -409,14 +410,18 @@ body {
 }
 
 /* Zero-Layout-Shift Strict Responsive Utilities */
+.h-\[320px\] { height: 320px; }
 .h-\[360px\] { height: 360px; }
 .h-\[240px\] { height: 240px; }
+.min-h-\[300px\] { min-height: 300px; }
+.min-h-\[280px\] { min-height: 280px; }
 .min-w-\[650px\] { min-width: 650px; }
 .max-w-\[120px\] { max-width: 120px; }
 .bg-\[\#0c121e\] { background-color: #0c121e; }
 
 @media (min-width: 640px) {
   .sm\:h-\[450px\] { height: 450px; }
+  .sm\:h-\[380px\] { height: 380px; }
   .sm\:h-\[300px\] { height: 300px; }
 }
 

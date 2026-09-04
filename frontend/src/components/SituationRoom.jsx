@@ -44,23 +44,13 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
   const recentAlerts = rawAlerts.slice(0, 5);
 
   return (
-    <div 
-      className="min-h-screen overflow-y-auto pb-12 px-4 py-6 md:px-8" 
-      style={{ 
-        width: '100%', 
-        minHeight: '100vh', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        gap: '1.75rem', 
-        paddingBottom: '4rem' 
-      }}
-    >
+    <div className="w-full flex flex-col gap-6 pb-12">
       
       {/* 1. Hero Header Banner with CTA */}
       <div className="glass-panel w-full p-4 sm:p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-[#0d1527] to-[#0a0f1d] border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.05)]">
         
         {/* Left: Text & Badges */}
-        <div className="flex flex-col gap-2 max-w-2xl">
+        <div className="flex flex-col gap-2 max-w-2xl min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-lg sm:text-2xl font-bold text-white tracking-tight">
               1. Situation Room &amp; Executive Telemetry
@@ -77,11 +67,11 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
         {/* Right: CTA Action Button */}
         <button 
           onClick={() => onNavigateToGraph('174515')}
-          className="w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs sm:text-sm transition-all duration-150 shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95"
+          className="w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs sm:text-sm transition-all duration-150 shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95 min-w-0"
         >
-          <Sparkles size={18} />
+          <Sparkles size={18} className="shrink-0" />
           <span className="truncate">Launch Deep Investigation (Cluster #174515)</span>
-          <ArrowRight size={17} />
+          <ArrowRight size={17} className="shrink-0" />
         </button>
 
       </div>
@@ -132,7 +122,7 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
             </div>
           </div>
           <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
-            Extreme label sparsity & high class imbalance
+            Extreme label sparsity &amp; high class imbalance
           </div>
         </div>
 
@@ -197,29 +187,20 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
       </div>
 
       {/* 3. Responsive 2-Column Grid: Donut Chart & Drift Sparkline */}
-      <div className="charts-grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="charts-grid grid grid-cols-1 lg:grid-cols-2 gap-6">
         
         {/* Card A: Risk Composition Donut Chart */}
-        <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+        <div className="glass-panel p-4 sm:p-6 flex flex-col">
+          <div className="flex justify-between items-center mb-3">
             <div>
-              <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>Risk Composition & Class Breakdown</h3>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              <h3 className="text-sm sm:text-base font-extrabold text-white">Risk Composition &amp; Class Breakdown</h3>
+              <p className="text-xs text-slate-400">
                 Visual breakdown: 2% Illicit, 21% Licit, 77% Unlabeled background
               </p>
             </div>
           </div>
 
-          <div 
-            className="h-[240px] sm:h-[300px]" 
-            style={{ 
-              width: '100%', 
-              position: 'relative', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center' 
-            }}
-          >
+          <div className="w-full h-[240px] sm:h-[300px] relative flex items-center justify-center">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                 <Pie
@@ -252,40 +233,26 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
             </ResponsiveContainer>
 
             {/* Centered Donut Badge */}
-            <div style={{
-              position: 'absolute',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              pointerEvents: 'none'
-            }}>
-              <span style={{ fontSize: '1.45rem', fontWeight: 900, fontFamily: 'var(--font-mono)', color: '#FFF' }}>
+            <div className="absolute flex flex-col items-center justify-center pointer-events-none">
+              <span className="text-xl sm:text-2xl font-black font-mono text-white">
                 203.7k
               </span>
-              <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontWeight: 700, letterSpacing: '0.05em' }}>
+              <span className="text-[10px] text-slate-400 font-bold tracking-wider">
                 TOTAL NODES
               </span>
             </div>
           </div>
 
           {/* Donut Legend */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '0.5rem',
-            marginTop: '0.75rem',
-            paddingTop: '0.75rem',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)'
-          }}>
+          <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-white/10">
             {datasetSplitData.map((item, idx) => (
-              <div key={idx} style={{ display: 'flex', flexDirection: 'column', gap: '0.15rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: item.color }} />
-                  <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>{item.name.split(' ')[0]}</span>
+              <div key={idx} className="flex flex-col gap-0.5">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-2 h-2 rounded-full" style={{ background: item.color }} />
+                  <span className="text-[11px] text-slate-300 truncate">{item.name.split(' ')[0]}</span>
                 </div>
-                <div style={{ fontSize: '0.9rem', fontWeight: 800, fontFamily: 'var(--font-mono)', color: item.color }}>
-                  {item.pct}% <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>({item.value.toLocaleString()})</span>
+                <div className="text-xs sm:text-sm font-bold font-mono" style={{ color: item.color }}>
+                  {item.pct}% <span className="text-[10px] text-slate-400 font-normal">({item.value.toLocaleString()})</span>
                 </div>
               </div>
             ))}
@@ -293,40 +260,33 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
         </div>
 
         {/* Card B: Temporal Trajectory Sparkline */}
-        <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+        <div className="glass-panel p-4 sm:p-6 flex flex-col">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>Temporal Trajectory Sparkline</h3>
-                <span style={{
-                  padding: '2px 7px',
-                  borderRadius: '4px',
-                  background: 'rgba(239, 68, 68, 0.2)',
-                  color: '#F87171',
-                  fontSize: '0.68rem',
-                  fontWeight: 800
-                }}>
+              <div className="flex items-center gap-2">
+                <h3 className="text-sm sm:text-base font-extrabold text-white">Temporal Trajectory Sparkline</h3>
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-red-500/20 text-red-400 border border-red-500/30">
                   t=35 &rarr; t=49
                 </span>
               </div>
-              <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              <p className="text-xs text-slate-400">
                 F1 score (cyan) and PR-AUC (amber) plunge at timestep 43 dark market seizure
               </p>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', fontSize: '0.72rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <div style={{ width: '10px', height: '3px', background: '#06B6D4', borderRadius: '2px' }} />
-                <span style={{ color: '#94A3B8' }}>F1 Fixed</span>
+            <div className="flex items-center gap-3 text-xs shrink-0">
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-1 bg-cyan-400 rounded-sm" />
+                <span className="text-slate-300">F1 Fixed</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <div style={{ width: '10px', height: '3px', background: '#F59E0B', borderRadius: '2px' }} />
-                <span style={{ color: '#94A3B8' }}>PR-AUC</span>
+              <div className="flex items-center gap-1.5">
+                <div className="w-2.5 h-1 bg-amber-400 rounded-sm" />
+                <span className="text-slate-300">PR-AUC</span>
               </div>
             </div>
           </div>
 
-          <div className="h-[240px] sm:h-[300px]" style={{ width: '100%', position: 'relative' }}>
+          <div className="w-full h-[240px] sm:h-[300px] relative">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={sparklineData} margin={{ top: 20, right: 25, left: -15, bottom: 10 }}>
                 <XAxis 
@@ -346,18 +306,11 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
                     if (!active || !payload || !payload.length) return null;
                     const d = payload[0].payload;
                     return (
-                      <div style={{
-                        background: 'rgba(15, 23, 42, 0.95)',
-                        border: d.timestep === 43 ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.1)',
-                        borderRadius: '6px',
-                        padding: '0.5rem 0.75rem',
-                        fontSize: '0.72rem',
-                        color: '#FFF'
-                      }}>
-                        <div style={{ fontWeight: 800 }}>Timestep {d.timestep}</div>
-                        <div style={{ color: '#06B6D4' }}>F1 Fixed: {d.f1_fixed_th}</div>
-                        <div style={{ color: '#F59E0B' }}>PR-AUC: {d.pr_auc}</div>
-                        {d.timestep === 43 && <div style={{ color: '#EF4444', fontWeight: 800, marginTop: '2px' }}>&bull; Dark Market Seizure Shock</div>}
+                      <div className="bg-slate-900/95 border border-white/10 rounded-lg p-2.5 text-xs text-white shadow-xl">
+                        <div className="font-bold text-slate-200">Timestep {d.timestep}</div>
+                        <div className="text-cyan-400">F1 Fixed: {d.f1_fixed_th}</div>
+                        <div className="text-amber-400">PR-AUC: {d.pr_auc}</div>
+                        {d.timestep === 43 && <div className="text-red-400 font-bold mt-1">&bull; Dark Market Seizure Shock</div>}
                       </div>
                     );
                   }}
@@ -393,142 +346,89 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
             </ResponsiveContainer>
           </div>
 
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            fontSize: '0.72rem',
-            color: 'var(--text-muted)',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-            paddingTop: '0.75rem'
-          }}>
+          <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-center text-xs text-slate-400 border-t border-white/10 pt-3 mt-1 gap-1">
             <span>Pre-Seizure Stability (t=35&ndash;42): Avg F1 0.88</span>
-            <span style={{ color: '#F87171', fontWeight: 700 }}>Post-Seizure Shock (t=43&ndash;49): Avg F1 0.02</span>
+            <span className="text-red-400 font-bold">Post-Seizure Shock (t=43&ndash;49): Avg F1 0.02</span>
           </div>
         </div>
 
       </div>
 
-      {/* 4. Bottom Section: Recent High-Risk Alerts Preview (5 Rows) */}
-      <div className="glass-panel" style={{ padding: '1.5rem', width: '100%' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+      {/* 4. Bottom Section: Recent High-Risk Alerts Preview (Defensive Data Table) */}
+      <div className="glass-panel p-4 sm:p-6 w-full flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 flex-wrap">
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <h3 style={{ fontSize: '1rem', fontWeight: 800 }}>Recent High-Risk Intercepts Preview</h3>
-              <span style={{
-                padding: '2px 8px',
-                borderRadius: '4px',
-                fontSize: '0.7rem',
-                fontWeight: 700,
-                background: 'rgba(239, 68, 68, 0.15)',
-                color: '#F87171',
-                border: '1px solid rgba(239, 68, 68, 0.3)'
-              }}>
+            <div className="flex items-center gap-2">
+              <h3 className="text-sm sm:text-base font-extrabold text-white">Recent High-Risk Intercepts Preview</h3>
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-red-500/15 text-red-400 border border-red-500/30 whitespace-nowrap">
                 5 Active Flags
               </span>
             </div>
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+            <p className="text-xs text-slate-400 mt-0.5">
               Top priority transactions from alerts queue requiring immediate graph inspection
             </p>
           </div>
 
           <button
             onClick={onNavigateToAlerts}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              padding: '0.5rem 1rem',
-              borderRadius: '7px',
-              fontSize: '0.78rem',
-              fontWeight: 700,
-              background: 'rgba(6, 182, 212, 0.15)',
-              border: '1px solid rgba(6, 182, 212, 0.35)',
-              color: '#38BDF8',
-              cursor: 'pointer',
-              transition: 'all 0.15s ease'
-            }}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-xs font-bold bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/35 text-cyan-400 transition-all cursor-pointer w-fit"
           >
             <span>View Full Queue (50 Alerts)</span>
             <ArrowRight size={14} />
           </button>
         </div>
 
-        {/* Table */}
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
+        {/* Responsive Wrapped Defensive Table */}
+        <div className="w-full overflow-x-auto border border-white/10 rounded-xl no-scrollbar">
+          <table className="w-full min-w-[650px] text-left text-sm border-collapse">
             <thead>
-              <tr style={{
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                color: 'var(--text-muted)',
-                fontSize: '0.72rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em'
-              }}>
-                <th style={{ padding: '0.75rem 1rem' }}>Node Identifier</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Timestep</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Risk Score</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Classification</th>
-                <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Forensic Action</th>
+              <tr className="border-b border-white/10 text-slate-400 text-xs uppercase tracking-wider bg-white/[0.02]">
+                <th className="p-3 sm:px-4 sm:py-3 whitespace-nowrap font-semibold">Node Identifier</th>
+                <th className="p-3 sm:px-4 sm:py-3 whitespace-nowrap font-semibold">Timestep</th>
+                <th className="p-3 sm:px-4 sm:py-3 whitespace-nowrap font-semibold">Risk Score</th>
+                <th className="p-3 sm:px-4 sm:py-3 whitespace-nowrap font-semibold">Classification</th>
+                <th className="p-3 sm:px-4 sm:py-3 whitespace-nowrap font-semibold text-right">Forensic Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-white/[0.04]">
               {recentAlerts.map((alert) => (
                 <tr
                   key={alert.node_id}
                   onClick={() => onNavigateToGraph(alert.node_id)}
-                  style={{
-                    borderBottom: '1px solid rgba(255, 255, 255, 0.04)',
-                    cursor: 'pointer',
-                    transition: 'background 0.15s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(6, 182, 212, 0.08)'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                  className="hover:bg-cyan-500/[0.07] cursor-pointer transition-colors"
                 >
-                  <td style={{ padding: '0.75rem 1rem' }}>
-                    <span style={{ fontFamily: 'var(--font-mono)', fontWeight: 800, color: '#38BDF8' }}>
+                  <td className="p-3 sm:px-4 sm:py-3 whitespace-nowrap">
+                    <span className="font-mono font-bold text-cyan-400">
                       #{alert.node_id}
                     </span>
                   </td>
-                  <td style={{ padding: '0.75rem 1rem', color: 'var(--text-secondary)', fontFamily: 'var(--font-mono)' }}>
+                  <td className="p-3 sm:px-4 sm:py-3 whitespace-nowrap text-slate-300 font-mono text-xs">
                     T-{alert.timestep}
                   </td>
-                  <td style={{ padding: '0.75rem 1rem' }}>
-                    <span style={{ fontWeight: 800, fontFamily: 'var(--font-mono)', color: '#EF4444' }}>
+                  <td className="p-3 sm:px-4 sm:py-3 whitespace-nowrap">
+                    <span className="font-mono font-bold text-red-400">
                       {(alert.risk_score * 100).toFixed(0)}%
                     </span>
                   </td>
-                  <td style={{ padding: '0.75rem 1rem' }}>
-                    <span style={{
-                      padding: '2px 8px',
-                      borderRadius: '4px',
-                      fontSize: '0.68rem',
-                      fontWeight: 800,
-                      background: alert.true_label === 1 ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)',
-                      color: alert.true_label === 1 ? '#F87171' : '#FBBF24',
-                      border: alert.true_label === 1 ? '1px solid #EF4444' : '1px solid #F59E0B'
-                    }}>
+                  <td className="p-3 sm:px-4 sm:py-3 whitespace-nowrap">
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                      alert.true_label === 1 
+                        ? 'bg-red-500/20 text-red-400 border border-red-500/40' 
+                        : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
+                    }`}>
                       {alert.true_label === 1 ? 'ILLICIT / DARKNET' : 'UNDER REVIEW'}
                     </span>
                   </td>
-                  <td style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>
+                  <td className="p-3 sm:px-4 sm:py-3 whitespace-nowrap text-right">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         onNavigateToGraph(alert.node_id);
                       }}
-                      style={{
-                        padding: '0.35rem 0.75rem',
-                        borderRadius: '5px',
-                        fontSize: '0.75rem',
-                        fontWeight: 700,
-                        background: 'rgba(6, 182, 212, 0.15)',
-                        border: '1px solid rgba(6, 182, 212, 0.4)',
-                        color: '#38BDF8',
-                        cursor: 'pointer'
-                      }}
+                      className="px-2.5 py-1 rounded text-xs font-semibold bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-400 cursor-pointer inline-flex items-center gap-1 transition-all"
                     >
-                      Investigate in Graph &rarr;
+                      <span>Investigate in Graph</span>
+                      <ArrowRight size={12} />
                     </button>
                   </td>
                 </tr>

@@ -344,9 +344,8 @@ export default function MissionControl({
         </div>
 
         {/* Live Waterfall Table */}
-        <div style={{ overflowX: 'auto', maxHeight: '620px' }}>
-          <table style={{
-            width: '100%',
+        <div className="w-full overflow-x-auto border border-white/10 rounded-xl no-scrollbar" style={{ maxHeight: '620px' }}>
+          <table className="w-full min-w-[650px]" style={{
             borderCollapse: 'collapse',
             textAlign: 'left',
             fontSize: '0.82rem'
@@ -359,14 +358,14 @@ export default function MissionControl({
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em'
               }}>
-                <th style={{ padding: '0.75rem 1rem' }}>Transaction ID</th>
-                <th style={{ padding: '0.75rem 1rem' }}>User / Card</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Merchant</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Amount</th>
-                <th style={{ padding: '0.75rem 1rem' }}>IP & Geolocation</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Risk Score</th>
-                <th style={{ padding: '0.75rem 1rem' }}>Decision</th>
-                <th style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Actions</th>
+                <th className="whitespace-nowrap" style={{ padding: '0.75rem 1rem' }}>Transaction ID</th>
+                <th className="whitespace-nowrap" style={{ padding: '0.75rem 1rem' }}>User / Card</th>
+                <th className="whitespace-nowrap" style={{ padding: '0.75rem 1rem' }}>Merchant</th>
+                <th className="whitespace-nowrap" style={{ padding: '0.75rem 1rem' }}>Amount</th>
+                <th className="whitespace-nowrap" style={{ padding: '0.75rem 1rem' }}>IP & Geolocation</th>
+                <th className="whitespace-nowrap" style={{ padding: '0.75rem 1rem' }}>Risk Score</th>
+                <th className="whitespace-nowrap" style={{ padding: '0.75rem 1rem' }}>Decision</th>
+                <th className="whitespace-nowrap" style={{ padding: '0.75rem 1rem', textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>

@@ -314,7 +314,7 @@ export default function DriftMonitor() {
         </div>
 
         {/* Recharts Container */}
-        <div style={{ width: '100%', height: '380px', marginTop: '0.5rem' }}>
+        <div className="w-full h-[300px] sm:h-[380px] min-h-[280px] relative mt-2">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={chartData}

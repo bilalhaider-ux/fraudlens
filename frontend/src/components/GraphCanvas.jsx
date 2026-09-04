@@ -636,7 +636,7 @@ export default function GraphCanvas({ targetNodeId, onSelectNodeId }) {
           {/* Cytoscape Container DOM Element */}
           <div
             ref={containerRef}
-            className="w-full h-[360px] sm:h-[450px] lg:h-[650px] bg-[#0c121e] rounded-xl relative overflow-hidden"
+            className="w-full h-[320px] sm:h-[450px] lg:h-[650px] min-h-[300px] bg-[#0c121e] rounded-xl relative overflow-hidden"
             style={{ cursor: 'grab' }}
           />
 
