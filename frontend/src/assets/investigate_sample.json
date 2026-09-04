@@ -1,0 +1,483 @@
+{
+  "seed_node": 174515,
+  "timestep": 43,
+  "elements": {
+    "nodes": [
+      {
+        "data": {
+          "id": "176898",
+          "is_seed": false,
+          "risk_score": 0.009,
+          "diffusion_score": 0.020285,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "174091",
+          "is_seed": false,
+          "risk_score": 0.6576,
+          "diffusion_score": 0.003987,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "174092",
+          "is_seed": false,
+          "risk_score": 0.8758,
+          "diffusion_score": 0.012212,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "174486",
+          "is_seed": false,
+          "risk_score": 0.0001,
+          "diffusion_score": 0.007027,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "177820",
+          "is_seed": false,
+          "risk_score": 0.2473,
+          "diffusion_score": 0.003298,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "174114",
+          "is_seed": false,
+          "risk_score": 0.0,
+          "diffusion_score": 0.014242,
+          "true_label": 0
+        }
+      },
+      {
+        "data": {
+          "id": "175012",
+          "is_seed": false,
+          "risk_score": 0.0009,
+          "diffusion_score": 0.032615,
+          "true_label": 1
+        }
+      },
+      {
+        "data": {
+          "id": "176813",
+          "is_seed": false,
+          "risk_score": 0.0177,
+          "diffusion_score": 0.002571,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "175408",
+          "is_seed": false,
+          "risk_score": 0.0218,
+          "diffusion_score": 0.00335,
+          "true_label": 0
+        }
+      },
+      {
+        "data": {
+          "id": "177842",
+          "is_seed": false,
+          "risk_score": 0.0,
+          "diffusion_score": 0.01153,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "174515",
+          "is_seed": true,
+          "risk_score": 0.0022,
+          "diffusion_score": 0.243823,
+          "true_label": 1
+        }
+      },
+      {
+        "data": {
+          "id": "174516",
+          "is_seed": false,
+          "risk_score": 0.1752,
+          "diffusion_score": 0.072097,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "174904",
+          "is_seed": false,
+          "risk_score": 0.1068,
+          "diffusion_score": 0.020681,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "174905",
+          "is_seed": false,
+          "risk_score": 0.0614,
+          "diffusion_score": 0.122127,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "179131",
+          "is_seed": false,
+          "risk_score": 0.1494,
+          "diffusion_score": 0.020681,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "177086",
+          "is_seed": false,
+          "risk_score": 0.0195,
+          "diffusion_score": 0.00422,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "176446",
+          "is_seed": false,
+          "risk_score": 0.005,
+          "diffusion_score": 0.009235,
+          "true_label": 1
+        }
+      },
+      {
+        "data": {
+          "id": "175558",
+          "is_seed": false,
+          "risk_score": 0.04,
+          "diffusion_score": 0.017654,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "175559",
+          "is_seed": false,
+          "risk_score": 0.4593,
+          "diffusion_score": 0.083263,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "176457",
+          "is_seed": false,
+          "risk_score": 0.7217,
+          "diffusion_score": 0.047729,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "176073",
+          "is_seed": false,
+          "risk_score": 0.0059,
+          "diffusion_score": 0.003914,
+          "true_label": 1
+        }
+      },
+      {
+        "data": {
+          "id": "175819",
+          "is_seed": false,
+          "risk_score": 0.4247,
+          "diffusion_score": 0.01504,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "176974",
+          "is_seed": false,
+          "risk_score": 0.0025,
+          "diffusion_score": 0.017796,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "177618",
+          "is_seed": false,
+          "risk_score": 0.0003,
+          "diffusion_score": 0.002528,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "176469",
+          "is_seed": false,
+          "risk_score": 0.1636,
+          "diffusion_score": 0.020681,
+          "true_label": 1
+        }
+      },
+      {
+        "data": {
+          "id": "174806",
+          "is_seed": false,
+          "risk_score": 0.0475,
+          "diffusion_score": 0.004144,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "176860",
+          "is_seed": false,
+          "risk_score": 0.8799,
+          "diffusion_score": 0.002528,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "178663",
+          "is_seed": false,
+          "risk_score": 0.7966,
+          "diffusion_score": 0.020681,
+          "true_label": 2
+        }
+      },
+      {
+        "data": {
+          "id": "178155",
+          "is_seed": false,
+          "risk_score": 0.001,
+          "diffusion_score": 0.058743,
+          "true_label": 1
+        }
+      },
+      {
+        "data": {
+          "id": "176893",
+          "is_seed": false,
+          "risk_score": 0.0003,
+          "diffusion_score": 0.020898,
+          "true_label": 1
+        }
+      }
+    ],
+    "edges": [
+      {
+        "data": {
+          "id": "176898_176457",
+          "source": "176898",
+          "target": "176457"
+        }
+      },
+      {
+        "data": {
+          "id": "174091_174092",
+          "source": "174091",
+          "target": "174092"
+        }
+      },
+      {
+        "data": {
+          "id": "174092_175012",
+          "source": "174092",
+          "target": "175012"
+        }
+      },
+      {
+        "data": {
+          "id": "177820_174092",
+          "source": "177820",
+          "target": "174092"
+        }
+      },
+      {
+        "data": {
+          "id": "175012_176446",
+          "source": "175012",
+          "target": "176446"
+        }
+      },
+      {
+        "data": {
+          "id": "176813_174092",
+          "source": "176813",
+          "target": "174092"
+        }
+      },
+      {
+        "data": {
+          "id": "175408_176446",
+          "source": "175408",
+          "target": "176446"
+        }
+      },
+      {
+        "data": {
+          "id": "177842_174486",
+          "source": "177842",
+          "target": "174486"
+        }
+      },
+      {
+        "data": {
+          "id": "174515_174516",
+          "source": "174515",
+          "target": "174516"
+        }
+      },
+      {
+        "data": {
+          "id": "174515_178155",
+          "source": "174515",
+          "target": "178155"
+        }
+      },
+      {
+        "data": {
+          "id": "174516_176457",
+          "source": "174516",
+          "target": "176457"
+        }
+      },
+      {
+        "data": {
+          "id": "174904_174905",
+          "source": "174904",
+          "target": "174905"
+        }
+      },
+      {
+        "data": {
+          "id": "174905_174515",
+          "source": "174905",
+          "target": "174515"
+        }
+      },
+      {
+        "data": {
+          "id": "179131_174905",
+          "source": "179131",
+          "target": "174905"
+        }
+      },
+      {
+        "data": {
+          "id": "177086_177842",
+          "source": "177086",
+          "target": "177842"
+        }
+      },
+      {
+        "data": {
+          "id": "175558_175559",
+          "source": "175558",
+          "target": "175559"
+        }
+      },
+      {
+        "data": {
+          "id": "175559_174515",
+          "source": "175559",
+          "target": "174515"
+        }
+      },
+      {
+        "data": {
+          "id": "176073_175819",
+          "source": "176073",
+          "target": "175819"
+        }
+      },
+      {
+        "data": {
+          "id": "175819_175012",
+          "source": "175819",
+          "target": "175012"
+        }
+      },
+      {
+        "data": {
+          "id": "176974_175559",
+          "source": "176974",
+          "target": "175559"
+        }
+      },
+      {
+        "data": {
+          "id": "176974_174114",
+          "source": "176974",
+          "target": "174114"
+        }
+      },
+      {
+        "data": {
+          "id": "177618_175819",
+          "source": "177618",
+          "target": "175819"
+        }
+      },
+      {
+        "data": {
+          "id": "176469_174905",
+          "source": "176469",
+          "target": "174905"
+        }
+      },
+      {
+        "data": {
+          "id": "174806_176446",
+          "source": "174806",
+          "target": "176446"
+        }
+      },
+      {
+        "data": {
+          "id": "176860_175819",
+          "source": "176860",
+          "target": "175819"
+        }
+      },
+      {
+        "data": {
+          "id": "178663_174905",
+          "source": "178663",
+          "target": "174905"
+        }
+      },
+      {
+        "data": {
+          "id": "178155_175012",
+          "source": "178155",
+          "target": "175012"
+        }
+      },
+      {
+        "data": {
+          "id": "176893_175559",
+          "source": "176893",
+          "target": "175559"
+        }
+      },
+      {
+        "data": {
+          "id": "176893_177842",
+          "source": "176893",
+          "target": "177842"
+        }
+      }
+    ]
+  }
+}
