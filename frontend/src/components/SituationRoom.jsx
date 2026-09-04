@@ -57,82 +57,33 @@ export default function SituationRoom({ onNavigateToGraph, onNavigateToAlerts })
     >
       
       {/* 1. Hero Header Banner with CTA */}
-      <div className="glass-panel" style={{
-        padding: '1.5rem 1.75rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: '1.25rem',
-        background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(10, 14, 23, 0.98) 100%)',
-        border: '1px solid rgba(6, 182, 212, 0.25)',
-        boxShadow: '0 0 40px rgba(6, 182, 212, 0.08)'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <div style={{
-            width: '52px',
-            height: '52px',
-            borderRadius: '12px',
-            background: 'linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(239, 68, 68, 0.25) 100%)',
-            border: '1px solid rgba(6, 182, 212, 0.5)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#06B6D4',
-            boxShadow: '0 0 25px rgba(6, 182, 212, 0.25)',
-            flexShrink: 0
-          }}>
-            <ShieldAlert size={28} />
+      <div className="glass-panel w-full p-4 sm:p-6 rounded-2xl flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gradient-to-r from-[#0d1527] to-[#0a0f1d] border border-cyan-500/20 shadow-[0_0_30px_rgba(6,182,212,0.05)]">
+        
+        {/* Left: Text & Badges */}
+        <div className="flex flex-col gap-2 max-w-2xl">
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-lg sm:text-2xl font-bold text-white tracking-tight">
+              1. Situation Room &amp; Executive Telemetry
+            </h1>
+            <span className="px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 whitespace-nowrap">
+              Perimeter Active
+            </span>
           </div>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <h1 style={{ fontSize: '1.4rem', fontWeight: 900, letterSpacing: '-0.02em', margin: 0 }}>
-                1. Situation Room & Executive Telemetry
-              </h1>
-              <span style={{
-                padding: '3px 9px',
-                borderRadius: '6px',
-                fontSize: '0.72rem',
-                fontWeight: 800,
-                background: 'rgba(6, 182, 212, 0.15)',
-                color: '#38BDF8',
-                border: '1px solid rgba(6, 182, 212, 0.35)',
-                letterSpacing: '0.04em'
-              }}>
-                PERIMETER ACTIVE
-              </span>
-            </div>
-            <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '0.3rem', maxWidth: '750px' }}>
-              Autonomous monitoring of Elliptic cryptocurrency transaction graph. Tracking 203,769 entities across timesteps 35–49 with temporal drift supervision.
-            </p>
-          </div>
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            Autonomous monitoring of Elliptic cryptocurrency transaction graph. Tracking 203,769 entities across timesteps 35–49 with temporal drift supervision.
+          </p>
         </div>
 
-        {/* Primary Call-to-Action */}
-        <button
+        {/* Right: CTA Action Button */}
+        <button 
           onClick={() => onNavigateToGraph('174515')}
-          className="btn-primary"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.65rem',
-            padding: '0.85rem 1.6rem',
-            borderRadius: '10px',
-            fontSize: '0.9rem',
-            fontWeight: 800,
-            background: 'linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%)',
-            color: '#FFF',
-            border: '1px solid rgba(255, 255, 255, 0.3)',
-            boxShadow: '0 0 25px rgba(6, 182, 212, 0.4)',
-            cursor: 'pointer',
-            transition: 'all 0.2s ease',
-            whiteSpace: 'nowrap'
-          }}
+          className="w-full md:w-auto shrink-0 flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-semibold text-xs sm:text-sm transition-all duration-150 shadow-[0_0_20px_rgba(6,182,212,0.3)] active:scale-95"
         >
           <Sparkles size={18} />
-          <span>Launch Deep Investigation (Cluster #174515)</span>
+          <span className="truncate">Launch Deep Investigation (Cluster #174515)</span>
           <ArrowRight size={17} />
         </button>
+
       </div>
 
       {/* 2. Hero 4 KPI Stat Cards */}
